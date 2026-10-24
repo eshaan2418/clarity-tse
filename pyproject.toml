@@ -1,0 +1,52 @@
+[project]
+name = "clarity-tse"
+version = "0.1.0"
+description = "Clarity: attention-steered, ultra-low-latency, listener-personalized target speaker extraction (research prototype, not a medical device)"
+requires-python = ">=3.12,<3.13"
+dependencies = [
+  "numpy>=1.26,<2.3",
+  "scipy>=1.13",
+  "soundfile>=0.12",
+  "torch>=2.4",
+  "torchaudio>=2.4",
+  "pyroomacoustics>=0.7",
+  "pystoi>=0.4",
+  "pesq>=0.0.4",
+  "pyclarity>=0.6",
+  "onnx>=1.16",
+  "onnxruntime>=1.18",
+  "matplotlib>=3.8",
+  "pandas>=2.2",
+  "statsmodels>=0.14",
+  "pyyaml>=6",
+  "tqdm>=4.66",
+  "speechbrain>=1.1.2",
+]
+
+[dependency-groups]
+dev = ["pytest>=8", "pytest-timeout", "ruff>=0.6", "mypy>=1.11", "types-PyYAML"]
+
+[build-system]
+requires = ["setuptools>=69"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["clarity_tse*"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP", "NPY"]
+ignore = ["E741", "E501"]
+
+[tool.mypy]
+python_version = "3.12"
+ignore_missing_imports = true
+warn_unused_ignores = false
+files = ["clarity_tse"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+timeout = 600
+markers = ["slow: slow tests (HASPI, training); run with -m slow"]

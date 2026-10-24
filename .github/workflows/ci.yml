@@ -1,0 +1,30 @@
+name: ci
+on: [push, pull_request]
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v3
+      - run: sudo apt-get update && sudo apt-get install -y libsndfile1 cmake g++
+      - run: uv sync --frozen
+      - run: make lint typecheck
+      - run: make test
+      - run: make rt-test
+      - run: make train-quick-fixture
+      - run: uv run pytest -q tests/test_latency_regression.py
+  android:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with: {distribution: temurin, java-version: "17"}
+      - uses: android-actions/setup-android@v3
+      - run: cd android && ./gradlew assembleDebug testDebugUnitTest
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: gitleaks/gitleaks-action@v2
+      - run: bash scripts/scan_repo.sh
