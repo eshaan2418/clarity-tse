@@ -1,5 +1,8 @@
 # Clarity
 
+[![ci](https://github.com/eshaan2418/clarity/actions/workflows/ci.yml/badge.svg)](https://github.com/eshaan2418/clarity/actions/workflows/ci.yml)
+![python](https://img.shields.io/badge/python-3.12-blue) ![status](https://img.shields.io/badge/status-research%20prototype-orange) ![not a medical device](https://img.shields.io/badge/not%20a-medical%20device-red)
+
 **Hear the person you're talking to — not the room.** Clarity is a phone + earbuds research system that
 isolates the voice of your conversation partner in a noisy, multi-talker room, inside a 20 ms latency
 budget, steered by where you're facing and (optionally) personalised to your audiogram.
