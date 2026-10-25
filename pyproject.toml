@@ -48,5 +48,6 @@ files = ["clarity_tse"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+pythonpath = ["."]
 timeout = 600
 markers = ["slow: slow tests (HASPI, training); run with -m slow"]

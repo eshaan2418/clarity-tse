@@ -9,3 +9,4 @@
 | B5 | No Android device | Desktop RT engine + app build only | No `on-device` latency/energy numbers; M8 reported as `estimated` |
 | B6 | No personal recordings | M9 blocked-with-fallback | No real-world evaluation |
 | B7 | No listeners | Study package + simulated dry-run | No human intelligibility results; HL results are `simulated listener` only |
+| B8 | Shared host: other users' workloads (QShield-X sims, other agents) drive load average ~100 on 18 cores | Every timing result records `os.getloadavg()`; latency benchmarks re-run when load is low; p99/p99.9 reported with the load at measurement | Compute-latency tails may be pessimistic; RTF is an upper bound under contention |

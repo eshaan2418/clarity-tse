@@ -38,6 +38,8 @@ testsets:         ## M1: frozen, checksummed test sets
 baselines:        ## M2
 	$(PY) -m bench.run_baselines --jobs $(JOBS)
 train-quick-fixture:  ## tiny train+eval on fixtures (CI)
+	bash scripts/ci_fixture.sh
+unused-old-fixture:
 	CLARITY_EXTERNAL=data/fixtures/external CLARITY_CACHE=data/fixtures/cache $(PY) -m bench.train --config configs/ci_tiny.yaml --out results/ci
 train-quick:
 	$(PY) -m bench.train --config configs/quick.yaml --out results/quick

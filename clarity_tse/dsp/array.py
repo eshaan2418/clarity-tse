@@ -25,11 +25,18 @@ def steering_vector(theta_deg: float, freqs: np.ndarray, d: float = EAR_SPACING)
     return np.stack([np.ones_like(freqs, dtype=complex), np.exp(-2j * np.pi * freqs * tau)])
 
 
-def delay_and_sum(X: np.ndarray, theta_deg: float, freqs: np.ndarray) -> np.ndarray:
-    """X: (2, F, K) -> (F, K)."""
-    a = steering_vector(theta_deg, freqs)
-    w = a / a.shape[0]
-    return np.einsum("cf,cfk->fk", w.conj(), X)
+def _steer_per_frame(theta_deg: float | np.ndarray, freqs: np.ndarray, K: int) -> np.ndarray:
+    """(2, F, K) steering vectors for a scalar or per-frame azimuth."""
+    th = np.broadcast_to(np.asarray(theta_deg, dtype=float), (K,))
+    tau = tdoa_right_minus_left(th)  # (K,)
+    a1 = np.exp(-2j * np.pi * freqs[:, None] * tau[None, :])
+    return np.stack([np.ones_like(a1), a1])
+
+
+def delay_and_sum(X: np.ndarray, theta_deg: float | np.ndarray, freqs: np.ndarray) -> np.ndarray:
+    """X: (2, F, K); theta scalar or (K,) -> (F, K)."""
+    a = _steer_per_frame(theta_deg, freqs, X.shape[-1])
+    return np.einsum("cfk,cfk->fk", (a / 2).conj(), X)
 
 
 def mvdr_weights(R: np.ndarray, a: np.ndarray, loading: float = 1e-3) -> np.ndarray:
@@ -42,19 +49,19 @@ def mvdr_weights(R: np.ndarray, a: np.ndarray, loading: float = 1e-3) -> np.ndar
     return (Rinv_a / (denom[:, None] + 1e-12)).T
 
 
-def mvdr(X: np.ndarray, theta_deg: float, freqs: np.ndarray, noise: np.ndarray | None = None,
+def mvdr(X: np.ndarray, theta_deg: float | np.ndarray, freqs: np.ndarray, noise: np.ndarray | None = None,
          alpha: float = 0.98, loading: float = 1e-2) -> np.ndarray:
     """Causal MVDR. If ``noise`` (2,F,K) is given, uses an oracle recursive noise covariance
     (upper-bound baseline); otherwise MPDR on the mixture covariance (practical, causal)."""
-    a = steering_vector(theta_deg, freqs)
     src = X if noise is None else noise
     C, F, K = X.shape
+    A = _steer_per_frame(theta_deg, freqs, K)
     R = np.tile(np.eye(C, dtype=complex)[None] * 1e-6, (F, 1, 1))
     Y = np.empty((F, K), dtype=complex)
     for k in range(K):
         v = src[:, :, k].T  # (F, C)
         R = alpha * R + (1 - alpha) * np.einsum("fc,fd->fcd", v, v.conj())
-        w = mvdr_weights(R, a, loading)
+        w = mvdr_weights(R, A[:, :, k], loading)
         Y[:, k] = np.einsum("cf,cf->f", w.conj(), X[:, :, k])
     return Y
 

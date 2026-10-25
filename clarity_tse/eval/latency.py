@@ -76,7 +76,7 @@ def provenance(config: dict[str, Any] | None = None, seed: int | None = None, ck
     """Metadata block attached to every results file (non-negotiable rule 1)."""
     return dict(git_commit=git_commit(), hardware=hardware(), evidence_stage=stage, seed=seed,
                 checkpoint_sha256=ckpt_hash, config=config or {}, timestamp=time.strftime("%Y-%m-%dT%H:%M:%S%z"),
-                torch_threads=os.environ.get("OMP_NUM_THREADS", "default"))
+                torch_threads=os.environ.get("OMP_NUM_THREADS", "default"), load_avg=list(os.getloadavg()))
 
 
 def write_result(path: str | Path, payload: dict[str, Any], **prov: Any) -> Path:

@@ -1,0 +1,33 @@
+data:
+  bank_size: 8
+  doa_noise_deg: 5.0
+  p_absent: 0.08
+  p_no_doa: 0.15
+  p_no_voice: 0.15
+init_from: null
+loss:
+  teacher: null
+  w_kd: 0.0
+  w_over: 1.0
+  w_spec: 1.0
+model:
+  blocks: 2
+  bottleneck: 16
+  hidden: 16
+  hop: 64
+  n_fft: 256
+  repeats: 1
+name: ci_tiny
+seed: 0
+train:
+  batch: 2
+  clip_s: 1.0
+  device: cpu
+  eval_every: 20
+  lr: 0.001
+  size_per_epoch: 40
+  steps: 20
+  val_per_cell: 1
+  val_set: fixture_main
+  warmup: 5
+  workers: 0

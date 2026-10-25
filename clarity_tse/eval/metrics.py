@@ -49,7 +49,9 @@ def pesq_wb(est: np.ndarray, ref: np.ndarray, sr: int = 16000) -> float:
 def stoi(est: np.ndarray, ref: np.ndarray, sr: int = 16000, extended: bool = False) -> float:
     from pystoi import stoi as _stoi
 
-    return float(_stoi(ref, est, sr, extended=extended))
+    with warnings.catch_warnings(), np.errstate(all="ignore"):
+        warnings.simplefilter("ignore")  # spurious matmul FP warnings from Accelerate BLAS
+        return float(_stoi(ref, est, sr, extended=extended))
 
 
 def _audiogram(levels: np.ndarray | None):

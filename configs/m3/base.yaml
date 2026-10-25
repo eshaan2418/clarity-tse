@@ -1,0 +1,8 @@
+# Streaming TSE, 10 ms algorithmic latency (asymmetric 32 ms analysis / 10 ms synthesis window)
+name: b10_s0
+seed: 0
+model: {n_fft: 512, hop: 80, lookahead: 0, channels: 2, bottleneck: 128, hidden: 256, blocks: 7, repeats: 2,
+        causal: true, use_doa: true, use_voice: true}
+train: {steps: 30000, batch: 16, lr: 1.0e-3, clip_s: 4.0, workers: 10, eval_every: 2500, val_set: val_main,
+        val_per_cell: 2, device: auto, warmup: 500, size_per_epoch: 16000}
+loss: {w_spec: 1.0, w_over: 1.0, w_kd: 0.0, teacher: null}

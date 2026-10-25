@@ -1,0 +1,6 @@
+# CI: tiny model, few steps, on fixtures. Checks the train->checkpoint->validate path end to end.
+name: ci_tiny
+model: {n_fft: 256, hop: 64, blocks: 2, repeats: 1, bottleneck: 16, hidden: 16}
+train: {steps: 20, batch: 2, clip_s: 1.0, workers: 0, eval_every: 20, val_set: fixture_main, val_per_cell: 1,
+        device: cpu, warmup: 5, size_per_epoch: 40}
+data: {bank_size: 8}

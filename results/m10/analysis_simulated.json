@@ -1,0 +1,95 @@
+{
+  "n_participants": 16,
+  "n_trials": 480,
+  "simulated": true,
+  "percent_correct": {
+    "unprocessed": 39.32,
+    "rnnoise": 41.8,
+    "mpdr": 43.75,
+    "clarity_lo": 55.86,
+    "clarity_hi": 54.3
+  },
+  "elogit_lmm_clarity_lo_minus_baseline": {
+    "unprocessed": {
+      "coef": 0.7576347596178135,
+      "p": 1.562164209569453e-10,
+      "p_holm": 6.248656838277812e-10
+    },
+    "rnnoise": {
+      "coef": 0.6159415064047717,
+      "p": 1.9673150629641836e-07,
+      "p_holm": 5.901945188892551e-07
+    },
+    "mpdr": {
+      "coef": 0.5287331430903511,
+      "p": 7.976430740163873e-06,
+      "p_holm": 1.5952861480327747e-05
+    },
+    "clarity_hi": {
+      "coef": -0.021661144903179372,
+      "p": 0.8548328736862525,
+      "p_holm": 0.8548328736862525
+    }
+  },
+  "glmm_fixed_effects": {
+    "Intercept": -0.5525932652690768,
+    "C(condition)[T.rnnoise]": 0.12604335461203542,
+    "C(condition)[T.mpdr]": 0.22457466675023752,
+    "C(condition)[T.clarity_lo]": 0.8258048347557563,
+    "C(condition)[T.clarity_hi]": 0.7509070679089753,
+    "snr": 0.17748284489486377
+  },
+  "mushra_means": {
+    "unprocessed": 30.26,
+    "rnnoise": 33.81,
+    "mpdr": 41.45,
+    "clarity_lo": 61.64,
+    "clarity_hi": 65.05
+  },
+  "mushra_lmm_params": {
+    "Intercept": 30.263997121286234,
+    "C(condition)[T.rnnoise]": 3.541677823845244,
+    "C(condition)[T.mpdr]": 11.18617669181093,
+    "C(condition)[T.clarity_lo]": 31.37228328719663,
+    "C(condition)[T.clarity_hi]": 34.78180502159019,
+    "Group Var": 0.00018998760637849602
+  },
+  "effort_means": {
+    "unprocessed": 5.07,
+    "rnnoise": 4.92,
+    "mpdr": 4.38,
+    "clarity_lo": 3.29,
+    "clarity_hi": 3.3
+  },
+  "effort_lmm_params": {
+    "Intercept": 5.072916666666669,
+    "C(condition)[T.rnnoise]": -0.15625000000000114,
+    "C(condition)[T.mpdr]": -0.6979166666666681,
+    "C(condition)[T.clarity_lo]": -1.7812500000000024,
+    "C(condition)[T.clarity_hi]": -1.7708333333333361,
+    "Group Var": 2.9524813523074393e-06
+  },
+  "provenance": {
+    "git_commit": "6745e275563891756f51f2bb45ba976a6ad21617-dirty",
+    "hardware": {
+      "machine": "arm64",
+      "system": "Darwin",
+      "release": "27.0.0",
+      "python": "3.12.14",
+      "cpu": "Apple M5 Pro"
+    },
+    "evidence_stage": "desktop",
+    "seed": null,
+    "checkpoint_sha256": null,
+    "config": {
+      "data": "study/data_simulated"
+    },
+    "timestamp": "2026-10-24T14:45:55-0400",
+    "torch_threads": "default",
+    "load_avg": [
+      91.50927734375,
+      113.51025390625,
+      160.94140625
+    ]
+  }
+}

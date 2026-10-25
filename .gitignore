@@ -20,3 +20,6 @@ android/local.properties
 .DS_Store
 results/**/audio/*_private*
 data/fixtures/
+*.log
+study/data/
+study/trial_lists/

@@ -1,0 +1,40 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Clarity listening study</title>
+<style>body{font-family:system-ui;max-width:720px;margin:2em auto}button{font-size:1.1em;margin:.3em}
+.hidden{display:none}input[type=text]{width:100%;font-size:1.1em}</style></head>
+<body>
+<h2>Listening study</h2>
+<p><b>Research prototype — not a medical device or hearing test.</b> Remove the headphones if anything is too loud.</p>
+<div id="setup">
+  Participant code: <input id="pid" size="6"> <br><br>
+  <label><input type="checkbox" id="cal"> Experimenter: calibration done (calibration noise = 65 dB(A))</label><br><br>
+  <button onclick="start()">Start</button>
+</div>
+<div id="trial" class="hidden">
+  <p>Trial <span id="n"></span> / <span id="tot"></span></p>
+  <button onclick="play()">▶ Play (once)</button>
+  <p>Type every word the target talker said:</p><input type="text" id="words">
+  <p>Effort (1 = none … 7 = extreme): <select id="effort"><option>1</option><option>2</option><option>3</option><option selected>4</option><option>5</option><option>6</option><option>7</option></select></p>
+  <button onclick="next()">Next</button>
+</div>
+<div id="done" class="hidden"><h3>Thank you — all done.</h3></div>
+<script>
+let trials=[],i=0,pid="",played=false,audio=null;
+async function start(){
+  pid=document.getElementById('pid').value.trim();
+  if(!document.getElementById('cal').checked){alert('Calibrate first.');return;}
+  const r=await fetch('/api/trials?pid='+encodeURIComponent(pid)); if(!r.ok){alert('Unknown code');return;}
+  trials=await r.json(); document.getElementById('setup').classList.add('hidden');
+  document.getElementById('trial').classList.remove('hidden'); document.getElementById('tot').textContent=trials.length; show();
+}
+function show(){document.getElementById('n').textContent=i+1;document.getElementById('words').value='';played=false;}
+function play(){ if(played) return; const t=trials[i]; audio=new Audio('/audio/'+t.condition+'/'+t.item+'.wav'); audio.play(); played=true; }
+async function next(){
+  if(!played){alert('Play the sound first.');return;}
+  const t=trials[i];
+  await fetch('/api/response',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({participant:pid,
+    item:t.item,condition:t.condition,snr:t.snr,typed:document.getElementById('words').value,
+    effort:parseInt(document.getElementById('effort').value),time:Date.now()})});
+  i++; if(i>=trials.length){document.getElementById('trial').classList.add('hidden');document.getElementById('done').classList.remove('hidden');} else show();
+}
+</script></body></html>
