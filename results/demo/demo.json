@@ -1,0 +1,134 @@
+{
+  "model": "b16_s0",
+  "playback_gain_db": -10.0,
+  "scenes": {
+    "faced": {
+      "seed": 4,
+      "selection_rule": "first seed >= 3 with |target rel. azimuth| <= 8 deg",
+      "target_rel_az_start_deg": 7.86631520370824,
+      "kind": "restaurant",
+      "snr_db": 0.0,
+      "n_sources": 10,
+      "noise": "synthetic",
+      "head_motion": "drift",
+      "unprocessed": {
+        "si_sdr": -0.7322492599487305,
+        "estoi": 0.3820276287896497
+      },
+      "clarity_policy": {
+        "si_sdr": 2.298032522201538,
+        "estoi": 0.4863514949781446
+      },
+      "clarity_oracle_direction": {
+        "si_sdr": 2.6194140911102295,
+        "estoi": 0.504484505487845
+      },
+      "clarity_policy_after_volume_and_limiter": {
+        "si_sdr": 2.2980334758758545,
+        "estoi": 0.48635149494499186
+      },
+      "fraction_samples_at_ceiling": 0.0,
+      "peak_dbfs": -15.309612274169922,
+      "python_ort_hop_ms": {
+        "p50": 1.5792915000929497,
+        "p99": 11.882354826666408
+      }
+    },
+    "off_axis": {
+      "seed": 3,
+      "selection_rule": "fixed seed 3",
+      "target_rel_az_start_deg": 20.575138755357614,
+      "kind": "restaurant",
+      "snr_db": 0.0,
+      "n_sources": 11,
+      "noise": "synthetic",
+      "head_motion": "drift",
+      "unprocessed": {
+        "si_sdr": -1.7063474655151367,
+        "estoi": 0.2993019944083398
+      },
+      "clarity_policy": {
+        "si_sdr": -2.8283069133758545,
+        "estoi": 0.2553209092427063
+      },
+      "clarity_oracle_direction": {
+        "si_sdr": 2.276796340942383,
+        "estoi": 0.43006740011203326
+      },
+      "clarity_policy_after_volume_and_limiter": {
+        "si_sdr": -2.828306198120117,
+        "estoi": 0.2553209105116888
+      },
+      "fraction_samples_at_ceiling": 0.0,
+      "peak_dbfs": -13.942277908325195,
+      "python_ort_hop_ms": {
+        "p50": 1.7315834993496537,
+        "p99": 15.224666998255993
+      }
+    }
+  },
+  "cpp_engine": {
+    "model": "/Users/eshaan.kapooswalla/Clarity/data/cache/export/b16_s0.onnx",
+    "clock": "coreaudio",
+    "minutes_requested": 0.5,
+    "wall_seconds": 30.1,
+    "device_rate": 48000,
+    "device_buffer_frames": 256,
+    "mute": true,
+    "hop": 128,
+    "callbacks": 5625,
+    "hops": 3750,
+    "late_callbacks": 1,
+    "os_overloads": 1,
+    "simclock_underflows": 0,
+    "xruns_total": 2,
+    "hop_compute": {
+      "n": 3750,
+      "mean_ms": 1.51767,
+      "p50_ms": 1.49779,
+      "p90_ms": 1.69683,
+      "p99_ms": 1.94013,
+      "p999_ms": 2.15425,
+      "max_ms": 8.14129,
+      "deadline_ms": 8.0,
+      "deadline_misses": 1,
+      "dropped": 0
+    },
+    "callback": {
+      "n": 5625,
+      "mean_ms": 1.01413,
+      "p50_ms": 1.41246,
+      "p90_ms": 1.65708,
+      "p99_ms": 1.91608,
+      "p999_ms": 2.16992,
+      "max_ms": 8.14879,
+      "deadline_ms": 5.3333,
+      "deadline_misses": 1,
+      "dropped": 0
+    }
+  },
+  "provenance": {
+    "git_commit": "f9383b1893042708eb6af77287873d9d5e72585b-dirty",
+    "hardware": {
+      "machine": "arm64",
+      "system": "Darwin",
+      "release": "27.0.0",
+      "python": "3.12.14",
+      "cpu": "Apple M5 Pro"
+    },
+    "evidence_stage": "desktop",
+    "seed": null,
+    "checkpoint_sha256": null,
+    "config": {
+      "model": "b16_s0",
+      "out": "results/demo"
+    },
+    "timestamp": "2026-10-25T17:52:36-0400",
+    "torch_threads": "default",
+    "load_avg": [
+      52.88623046875,
+      48.017578125,
+      46.98974609375
+    ]
+  }
+}
