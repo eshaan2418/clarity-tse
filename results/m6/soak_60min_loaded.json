@@ -1,0 +1,67 @@
+{
+  "model": "data/cache/export/b16_s0.onnx",
+  "clock": "coreaudio",
+  "minutes_requested": 60.0,
+  "wall_seconds": 3600.1,
+  "device_rate": 48000,
+  "device_buffer_frames": 256,
+  "mute": true,
+  "hop": 128,
+  "callbacks": 674942,
+  "hops": 449962,
+  "late_callbacks": 6,
+  "os_overloads": 8,
+  "simclock_underflows": 0,
+  "xruns_total": 14,
+  "hop_compute": {
+    "n": 449962,
+    "mean_ms": 1.71461,
+    "p50_ms": 1.65671,
+    "p90_ms": 2.17317,
+    "p99_ms": 2.49704,
+    "p999_ms": 2.73825,
+    "max_ms": 46.56454,
+    "deadline_ms": 8.0,
+    "deadline_misses": 3,
+    "dropped": 0,
+    "rtf": 0.21432625
+  },
+  "callback": {
+    "n": 674942,
+    "mean_ms": 1.14472,
+    "p50_ms": 1.46579,
+    "p90_ms": 2.09133,
+    "p99_ms": 2.452,
+    "p999_ms": 2.70167,
+    "max_ms": 46.56608,
+    "deadline_ms": 5.3333,
+    "deadline_misses": 6,
+    "dropped": 0
+  },
+  "hop_ms": 8.0,
+  "onnx_sha256": "f433550cfad86b42ee211858c9ef60daeb3f7fc2af557fa284b55190607b59e0",
+  "provenance": {
+    "git_commit": "d534633c0d399c4f7c414f4c9050112804c0f383-dirty",
+    "hardware": {
+      "machine": "arm64",
+      "system": "Darwin",
+      "release": "27.0.0",
+      "python": "3.12.14",
+      "cpu": "Apple M5 Pro"
+    },
+    "evidence_stage": "desktop",
+    "seed": null,
+    "checkpoint_sha256": "d301a3b95db878493e06a90a376d4cb993418794f148b3ed6b4d4e8a1683298f",
+    "config": {
+      "tool": "soak_60min.raw.json"
+    },
+    "timestamp": "2026-10-25T17:35:23-0400",
+    "torch_threads": "1",
+    "load_avg": [
+      68.17919921875,
+      53.06494140625,
+      48.19140625
+    ]
+  },
+  "condition": "loaded host: 2 concurrent GPU training runs (with data loaders) + 8 HASPI evaluation workers + other users; see provenance.load_avg"
+}

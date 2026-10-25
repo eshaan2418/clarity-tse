@@ -1,0 +1,125 @@
+{
+  "log": [
+    {
+      "step": 0,
+      "loss": -0.5190750956535339,
+      "proxy": 0.5190750956535339
+    },
+    {
+      "step": 100,
+      "loss": -0.6661536693572998,
+      "proxy": 0.6662014126777649
+    },
+    {
+      "step": 200,
+      "loss": -0.5995595455169678,
+      "proxy": 0.5995678901672363
+    },
+    {
+      "step": 300,
+      "loss": -0.5877606272697449,
+      "proxy": 0.5878185629844666
+    },
+    {
+      "step": 400,
+      "loss": -0.6009865999221802,
+      "proxy": 0.6010666489601135
+    },
+    {
+      "step": 500,
+      "loss": -0.5907840728759766,
+      "proxy": 0.5908117294311523
+    },
+    {
+      "step": 600,
+      "loss": -0.5947579145431519,
+      "proxy": 0.5948131084442139
+    },
+    {
+      "step": 700,
+      "loss": -0.6078357100486755,
+      "proxy": 0.6079223155975342
+    },
+    {
+      "step": 800,
+      "loss": -0.567351222038269,
+      "proxy": 0.567374050617218
+    },
+    {
+      "step": 900,
+      "loss": -0.5312776565551758,
+      "proxy": 0.5313902497291565
+    },
+    {
+      "step": 1000,
+      "loss": -0.6096700429916382,
+      "proxy": 0.6096770763397217
+    },
+    {
+      "step": 1100,
+      "loss": -0.6399890184402466,
+      "proxy": 0.6400309801101685
+    },
+    {
+      "step": 1200,
+      "loss": -0.5731729865074158,
+      "proxy": 0.5731961727142334
+    },
+    {
+      "step": 1300,
+      "loss": -0.5623766183853149,
+      "proxy": 0.5624051094055176
+    },
+    {
+      "step": 1400,
+      "loss": -0.539046585559845,
+      "proxy": 0.5391199588775635
+    }
+  ],
+  "finetune_proxy": {
+    "NH": 0.634880006313324,
+    "mild_flat": 0.5849162936210632,
+    "moderate_flat": NaN,
+    "mild_sloping": 0.5850731730461121,
+    "moderate_sloping": 0.598921537399292,
+    "severe_sloping": 0.6077300906181335
+  },
+  "checkpoints": {
+    "generic": "7e2fc9e136737ef1cc728e7b3ee284e6a575795ea453273116f54d94b55547fa",
+    "NH": "11766400c099def77f7542c8c32b9f139dfaf7753f6ec36336a5d92c0ade3e61",
+    "mild_flat": "d86500e8b8ad905e87703256a8e199c042cb54ad92eca8aa9c8eaa48eb82690f",
+    "moderate_flat": "c6a9d9d4574e827e0802f46ed7ee6512dbb2e849b4e7c49225fa02a19a1d653a",
+    "mild_sloping": "7b9a87d63e58ae8b559a34c0f3a51f05bb6c3289fc149e0256bd48b97169ce7d",
+    "moderate_sloping": "77b3d053cd0a4a5cbf79bd9720e9bb3b27b70b1b851ebd660f011931ea1e63ad",
+    "severe_sloping": "c9066fd2c13dca4c9eb3f8d86dc9072bf388d4eaf7adcde3a1a59b892102a1d3"
+  },
+  "skipped_steps": 79,
+  "total_steps": 3300,
+  "provenance": {
+    "git_commit": "d534633c0d399c4f7c414f4c9050112804c0f383-dirty",
+    "hardware": {
+      "machine": "arm64",
+      "system": "Darwin",
+      "release": "27.0.0",
+      "python": "3.12.14",
+      "cpu": "Apple M5 Pro"
+    },
+    "evidence_stage": "desktop",
+    "seed": 0,
+    "checkpoint_sha256": null,
+    "config": {
+      "ckpt": "b16_s0",
+      "n": 1200,
+      "steps": 1500,
+      "ft_steps": 300,
+      "out": "results/m5"
+    },
+    "timestamp": "2026-10-25T17:05:12-0400",
+    "torch_threads": "default",
+    "load_avg": [
+      21.287109375,
+      21.15576171875,
+      24.09326171875
+    ]
+  }
+}

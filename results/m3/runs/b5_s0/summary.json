@@ -1,0 +1,76 @@
+{
+  "name": "b5_s0",
+  "best_val_si_sdri": 3.5220134196802975,
+  "steps": 3000,
+  "train_time_s": 1799.0343911647797,
+  "n_params": 1951620,
+  "macs_per_frame": 2013952,
+  "algorithmic_latency_ms": 5.0,
+  "checkpoint": "/Users/eshaan.kapooswalla/Clarity/data/cache/ckpt/b5_s0.pt",
+  "device": "mps",
+  "provenance": {
+    "git_commit": "d534633c0d399c4f7c414f4c9050112804c0f383-dirty",
+    "hardware": {
+      "machine": "arm64",
+      "system": "Darwin",
+      "release": "27.0.0",
+      "python": "3.12.14",
+      "cpu": "Apple M5 Pro"
+    },
+    "evidence_stage": "desktop",
+    "seed": 0,
+    "checkpoint_sha256": "cf899c9262163967d8bd0bf79abf2e9abcac3d7bf0f445127d6622103d559d33",
+    "config": {
+      "name": "b5_s0",
+      "seed": 0,
+      "init_from": "data/cache/ckpt/b10_s0.pt",
+      "model": {
+        "blocks": 7,
+        "bottleneck": 128,
+        "causal": true,
+        "channels": 2,
+        "hidden": 256,
+        "hop": 40,
+        "lookahead": 0,
+        "n_fft": 512,
+        "repeats": 2,
+        "use_doa": true,
+        "use_voice": true
+      },
+      "train": {
+        "steps": 3000,
+        "batch": 16,
+        "lr": 0.001,
+        "clip_s": 2.5,
+        "workers": 10,
+        "eval_every": 750,
+        "val_set": "val_main",
+        "val_per_cell": 2,
+        "device": "auto",
+        "warmup": 100,
+        "size_per_epoch": 16000
+      },
+      "loss": {
+        "w_spec": 1.0,
+        "w_over": 1.0,
+        "w_kd": 0.5,
+        "teacher": "data/cache/ckpt/offline_s0.pt"
+      },
+      "data": {
+        "bank_size": null,
+        "p_absent": 0.08,
+        "p_no_voice": 0.15,
+        "p_no_doa": 0.15,
+        "doa_noise_deg": 5.0
+      },
+      "order": 5
+    },
+    "timestamp": "2026-10-25T17:32:37-0400",
+    "torch_threads": "default",
+    "load_avg": [
+      46.5986328125,
+      51.59912109375,
+      47.25341796875
+    ]
+  }
+}

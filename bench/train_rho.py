@@ -54,9 +54,27 @@ def rho_loss(rho, stft, am, y, ref, ag):
     z = stft.synthesis(torch.complex(zr, zi), y.shape[-1])
     p = intelligibility_proxy(am(z, ag), am(ref, torch.zeros_like(ag)))
     # discomfort guard: penalise band levels above 100 dB SPL
-    lv = am.levels(torch.stft(z, 512, 128, window=am.win, return_complex=True).abs().square())
+    Z = torch.stft(z, 512, 128, window=am.win, return_complex=True)
+    lv = am.levels(Z.real.square() + Z.imag.square())  # not |Z|^2 via abs(): d|Z| is NaN at Z = 0
     pen = torch.relu(lv - 100).mean((-1, -2))
     return (-p + 0.05 * pen).mean(), float(p.mean())
+
+
+SKIPPED = [0, 0]  # (steps skipped for non-finite loss/gradients, total steps); reported in the results file
+
+
+def safe_step(loss, params, opt) -> None:
+    SKIPPED[1] += 1
+    if not torch.isfinite(loss):
+        SKIPPED[0] += 1
+        return
+    loss.backward()
+    if not all(torch.isfinite(q.grad).all() for q in params if q.grad is not None):
+        SKIPPED[0] += 1
+        opt.zero_grad()
+        return
+    torch.nn.utils.clip_grad_norm_(params, 1.0)
+    opt.step()
 
 
 def main() -> None:
@@ -83,11 +101,7 @@ def main() -> None:
         ag = torch.tensor(np.stack([random_audiogram(rng) for _ in range(16)]), dtype=torch.float32)
         loss, p = rho_loss(rho, stft, am, y[idx], ref[idx], ag)
         opt.zero_grad()
-        if not torch.isfinite(loss):
-            continue
-        loss.backward()
-        torch.nn.utils.clip_grad_norm_(rho.parameters(), 1.0)
-        opt.step()
+        safe_step(loss, list(rho.parameters()), opt)
         if step % 100 == 0:
             log.append(dict(step=step, loss=float(loss), proxy=p))
             print(step, round(float(loss), 4), round(p, 4), flush=True)
@@ -107,17 +121,14 @@ def main() -> None:
             idx = torch.tensor(rng.choice(len(y), 16, replace=False))
             loss, p = rho_loss(r2, stft, am, y[idx], ref[idx], ag)
             o2.zero_grad()
-            if not torch.isfinite(loss):
-                continue
-            loss.backward()
-            torch.nn.utils.clip_grad_norm_([r2.offset], 1.0)
-            o2.step()
+            safe_step(loss, [r2.offset], o2)
         ft_log[name] = p
         path = CKPT / f"rho_{name}_{a.ckpt}.pt"
         torch.save(dict(state_dict=r2.state_dict(), n_fft=net.cfg.n_fft, hop=net.cfg.hop, per_listener=True), path)
         hashes[name] = sha256_file(path)
         print("ft", name, round(p, 4), flush=True)
-    write_result(Path(a.out) / f"train_rho_{a.ckpt}.json", dict(log=log, finetune_proxy=ft_log, checkpoints=hashes),
+    write_result(Path(a.out) / f"train_rho_{a.ckpt}.json", dict(log=log, finetune_proxy=ft_log, checkpoints=hashes,
+                 skipped_steps=SKIPPED[0], total_steps=SKIPPED[1]),
                  config=vars(a), seed=0)
 
 

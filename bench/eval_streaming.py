@@ -51,6 +51,8 @@ def main() -> None:
     ap.add_argument("--set", default="test_main")
     ap.add_argument("--out", default="results/m3")
     ap.add_argument("--no-haspi", action="store_true")
+    ap.add_argument("--recompute", action="store_true", help="re-score systems already in per_item.csv")
+    ap.add_argument("--only-eval", action="store_true", help="score finished runs, skip the summary")
     a = ap.parse_args()
     rs = runs()
     systems = [f"model:{n}" for n in rs]
@@ -59,7 +61,13 @@ def main() -> None:
         systems += [f"model:{op0}:nodoa", f"model:{op0}:novoice"]
     out = Path(a.out)
     csv = out / "per_item.csv"
-    df = evaluate(a.set, systems, csv, a.jobs, haspi=not a.no_haspi)
+    done = set(pd.read_csv(csv).system.unique()) if csv.exists() and not a.recompute else set()
+    todo = [s for s in systems if s not in done]
+    if todo:
+        evaluate(a.set, todo, csv, a.jobs, haspi=not a.no_haspi)
+    if a.only_eval:
+        return
+    df = pd.read_csv(csv)
     base = pd.read_csv("results/m2/per_item.csv") if Path("results/m2/per_item.csv").exists() else None
     if base is not None:
         df = pd.concat([df, base[~base.system.isin(df.system.unique())]])
