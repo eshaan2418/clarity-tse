@@ -1,5 +1,5 @@
 data: {}
-init_from: null
+init_from: data/cache/ckpt/b10_s0.pt
 loss:
   teacher: data/cache/ckpt/offline_s0.pt
   w_kd: 0.5
@@ -18,16 +18,17 @@ model:
   use_doa: true
   use_voice: true
 name: b5_s0
+order: 5
 seed: 0
 train:
   batch: 16
-  clip_s: 4.0
+  clip_s: 2.5
   device: auto
-  eval_every: 2500
+  eval_every: 750
   lr: 0.001
   size_per_epoch: 16000
-  steps: 30000
+  steps: 3000
   val_per_cell: 2
   val_set: val_main
-  warmup: 500
+  warmup: 100
   workers: 10

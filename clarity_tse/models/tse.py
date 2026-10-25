@@ -67,6 +67,8 @@ class FrameNorm(nn.Module):
 
 
 class TCNBlock(nn.Module):
+    pad: int
+
     def __init__(self, b: int, h: int, k: int, dilation: int, causal: bool):
         super().__init__()
         self.inp = nn.Conv1d(b, h, 1)
@@ -98,6 +100,9 @@ class TCNBlock(nn.Module):
 
 
 class TSENet(nn.Module):
+    omega: torch.Tensor
+    blocks: nn.ModuleList
+
     def __init__(self, cfg: TSEConfig):
         super().__init__()
         self.cfg = cfg
@@ -218,6 +223,12 @@ class TSENet(nn.Module):
 
 
 class StreamingTSE(nn.Module):
+    dft_re: torch.Tensor
+    dft_im: torch.Tensor
+    idft_re: torch.Tensor
+    idft_im: torch.Tensor
+    net: TSENet
+
     """Hop-in/hop-out wrapper with explicit state for ONNX export and C++/Android engines.
 
     forward(hop (1, C, H), theta (1,), film (1, n_blocks, 2, b), *states) -> (out (1, H), *new_states)
@@ -248,7 +259,7 @@ class StreamingTSE(nn.Module):
     def state_shapes(self) -> list[tuple[int, ...]]:
         cfg = self.net.cfg
         shapes = [(1, cfg.channels, cfg.n_fft), (1, cfg.n_fft)]  # input buffer, OLA buffer
-        shapes += [(1, cfg.hidden, blk.pad) for blk in self.net.blocks]
+        shapes += [(1, cfg.hidden, int(blk.pad)) for blk in self.net.blocks]  # type: ignore[arg-type]
         if cfg.lookahead:
             shapes += [(1, cfg.channels, self.net.F, cfg.lookahead + 1, 2)]  # spectrum delay line (re/im)
         return shapes
@@ -269,7 +280,7 @@ class StreamingTSE(nn.Module):
         h = self.net.inp_norm(self.net.inp(feats))
         new_bufs = []
         for i, (blk, buf) in enumerate(zip(self.net.blocks, conv_bufs, strict=True)):
-            h, nb = blk.step(h * (1 + film[:, i, 0, :, None]) + film[:, i, 1, :, None], buf)
+            h, nb = blk.step(h * (1 + film[:, i, 0, :, None]) + film[:, i, 1, :, None], buf)  # type: ignore[operator]
             new_bufs.append(nb)
         wr, wi = self.net.weights_from_hidden(h)  # (1, C, F, 1)
         extra = []

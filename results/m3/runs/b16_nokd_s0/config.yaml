@@ -1,8 +1,13 @@
-data: {}
+data:
+  bank_size: null
+  doa_noise_deg: 5.0
+  p_absent: 0.08
+  p_no_doa: 0.15
+  p_no_voice: 0.15
 init_from: null
 loss:
-  teacher: data/cache/ckpt/offline_s0.pt
-  w_kd: 0.5
+  teacher: null
+  w_kd: 0.0
   w_over: 1.0
   w_spec: 1.0
 model:
@@ -11,22 +16,23 @@ model:
   causal: true
   channels: 2
   hidden: 256
-  hop: 40
+  hop: 128
   lookahead: 0
   n_fft: 512
   repeats: 2
   use_doa: true
   use_voice: true
-name: b5_s2
-seed: 2
+name: b16_nokd_s0
+order: 11
+seed: 0
 train:
   batch: 16
   clip_s: 4.0
   device: auto
-  eval_every: 2500
+  eval_every: 750
   lr: 0.001
   size_per_epoch: 16000
-  steps: 30000
+  steps: 6000
   val_per_cell: 2
   val_set: val_main
   warmup: 500

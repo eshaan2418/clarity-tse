@@ -23,3 +23,6 @@ data/fixtures/
 *.log
 study/data/
 study/trial_lists/
+logs/
+android/app/src/main/assets/
+android/app/.cxx/

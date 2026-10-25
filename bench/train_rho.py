@@ -100,7 +100,7 @@ def main() -> None:
             p_.requires_grad_(False)
         o2 = torch.optim.Adam([r2.offset], lr=2e-2)
         ag = torch.tensor([levels] * 16, dtype=torch.float32)
-        for step in range(a.ft_steps):
+        for _ in range(a.ft_steps):
             idx = torch.tensor(rng.choice(len(y), 16, replace=False))
             loss, p = rho_loss(r2, stft, am, y[idx], ref[idx], ag)
             o2.zero_grad()

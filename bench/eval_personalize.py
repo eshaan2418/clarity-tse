@@ -59,7 +59,7 @@ def _work(args):
         ag = np.array(PROFILES[prof], float)
         fir, _ = nalr.build(Audiogram(levels=ag, frequencies=FREQS))
 
-        def amp(x):
+        def amp(x, fir=fir):
             return np.convolve(x, fir)[d : d + len(x)]  # delay-compensated for scoring; delay reported separately
 
         outs = {"unprocessed": a["mix"][0], "nalr": amp(a["mix"][0]), "enh": enh, "enh+nalr": amp(enh)}
@@ -67,7 +67,7 @@ def _work(args):
         for tag, path in (("enh+rho_generic", f"rho_generic_{ckpt}.pt"), ("enh+rho_listener", f"rho_{prof}_{ckpt}.pt")):
             rho = load_rho(corpus.CACHE / "ckpt" / path)
             with torch.no_grad():
-                outs[tag] = net(mix, e, tht, post=lambda yr, yi, r=rho: r(yr, yi, agt))[0].numpy()
+                outs[tag] = net(mix, e, tht, post=lambda yr, yi, r=rho, agt=agt: r(yr, yi, agt))[0].numpy()
         for sys_name, y in outs.items():
             r = dict(id=item_id, kind=it["kind"], snr_db=it["snr_db"], profile=prof, system=sys_name,
                      haspi=M.haspi(y, ref, audiogram=ag), out_rms_dbfs=float(20 * np.log10(np.sqrt(np.mean(y**2)) + 1e-9)),

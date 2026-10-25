@@ -63,7 +63,7 @@ def render_one(args: tuple[str, dict[str, Any]]) -> dict[str, Any]:
     arrays = dict(mix=r.mix, target_early=r.target_early, target_reverb=r.target_reverb,
                   interference=r.interference, yaw=r.yaw, enrollment=r.enrollment)
     out.parent.mkdir(parents=True, exist_ok=True)
-    np.savez(out, **arrays)
+    np.savez(out, **arrays)  # type: ignore[arg-type]
     return dict(id=sp["id"], kind=sp["kind"], snr_db=sp["snr_db"], meta=r.meta, spec=sp,
                 sha256={k: _sha(v) for k, v in arrays.items()})
 

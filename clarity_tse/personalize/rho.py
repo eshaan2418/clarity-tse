@@ -56,6 +56,8 @@ def audiogram_at(levels: torch.Tensor, centres: np.ndarray) -> torch.Tensor:
 
 
 class BandLevels(nn.Module):
+    W: torch.Tensor
+
     """Causal, smoothed band levels in dB SPL from STFT power."""
 
     def __init__(self, n_fft: int, hop: int, sr: int = 16000, tau_ms: float = 10.0):
@@ -81,6 +83,8 @@ class BandLevels(nn.Module):
 
 
 class RhoStage(nn.Module):
+    Wn: torch.Tensor
+
     """Audiogram -> per-band (gain, compression ratio, knee); applied as a real gain per STFT bin."""
 
     def __init__(self, n_fft: int, hop: int, sr: int = 16000, hidden: int = 64, per_listener: bool = False):
@@ -88,8 +92,10 @@ class RhoStage(nn.Module):
         self.levels = BandLevels(n_fft, hop, sr)
         self.net = nn.Sequential(nn.Linear(8, hidden), nn.Tanh(), nn.Linear(hidden, hidden), nn.Tanh(),
                                  nn.Linear(hidden, 3 * N_BANDS))
-        nn.init.zeros_(self.net[-1].weight)
-        nn.init.zeros_(self.net[-1].bias)
+        last = self.net[-1]
+        assert isinstance(last, nn.Linear)
+        nn.init.zeros_(last.weight)
+        nn.init.zeros_(last.bias)
         Wn = self.levels.W / (self.levels.W.sum(0, keepdim=True) + 1e-8)
         self.register_buffer("Wn", Wn, persistent=False)  # band -> bin interpolation
         self.offset = nn.Parameter(torch.zeros(3 * N_BANDS)) if per_listener else None
@@ -131,6 +137,8 @@ def nalr_gains_db(audiogram: np.ndarray) -> np.ndarray:
 
 # ------------------------------------------------------------------ differentiable proxy
 class AudibilityModel(nn.Module):
+    win: torch.Tensor
+
     """Very simple hearing model: band level -> sensation level (soft-thresholded) w.r.t. the
     listener's thresholds. Normal hearing uses NORMAL_THRESHOLD_DB everywhere."""
 

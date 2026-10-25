@@ -112,7 +112,7 @@ def main() -> None:
     cfg = deep_update(DEFAULTS, yaml.safe_load(Path(args.config).read_text()))
     cfg = deep_update(cfg, json.loads(args.override))
     torch.manual_seed(cfg["seed"])
-    np.random.seed(cfg["seed"])
+    np.random.seed(cfg["seed"])  # noqa: NPY002 (legacy global RNG used by some deps)
     tr = cfg["train"]
     device = pick_device(tr["device"])
     out = Path(args.out) / cfg["name"]

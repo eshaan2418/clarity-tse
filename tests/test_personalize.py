@@ -3,8 +3,13 @@ import pytest
 import torch
 
 from clarity_tse.personalize.audiogram import PROFILES, validate
-from clarity_tse.personalize.rho import (MAX_BAND_GAIN_DB, AudibilityModel, RhoStage, intelligibility_proxy,
-                                         nalr_gains_db)
+from clarity_tse.personalize.rho import (
+    MAX_BAND_GAIN_DB,
+    AudibilityModel,
+    RhoStage,
+    intelligibility_proxy,
+    nalr_gains_db,
+)
 
 
 def test_gain_caps_enforced_for_extreme_audiograms():
@@ -31,6 +36,7 @@ def test_validate_rejects_bad_input():
 def test_nalr_matches_pyclarity():
     from clarity.enhancer.nalr import NALR
     from clarity.utils.audiogram import Audiogram
+
     from clarity_tse.personalize.audiogram import FREQS
     ag = np.array(PROFILES["moderate_sloping"], float)
     # our closed-form gains at NAL frequencies vs. pyclarity's FIR magnitude response there
@@ -43,7 +49,6 @@ def test_nalr_matches_pyclarity():
 
 def test_proxy_prefers_audible_signal():
     m = AudibilityModel()
-    rng = np.random.default_rng(0)
     t = np.arange(32000) / 16000
     clean = torch.tensor((0.05 * np.sin(2 * np.pi * 1000 * t) * (1 + np.sin(2 * np.pi * 4 * t))) [None], dtype=torch.float32)
     loss = torch.tensor([PROFILES["moderate_flat"]], dtype=torch.float32)

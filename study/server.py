@@ -13,7 +13,6 @@ import re
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 
-import numpy as np
 import soundfile as sf
 
 from clarity_tse.dsp.limiter import SafetyLimiter

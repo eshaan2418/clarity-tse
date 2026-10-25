@@ -1,0 +1,35 @@
+{
+  "set": "test_main",
+  "systems": [
+    "ds",
+    "mpdr",
+    "mvdr_oracle",
+    "rnnoise",
+    "unprocessed"
+  ],
+  "n_items": 240,
+  "csv": "results/m2/per_item.csv",
+  "provenance": {
+    "git_commit": "5293c0755f11c9e1b9f96dd43d14c9d5ab177172-dirty",
+    "hardware": {
+      "machine": "arm64",
+      "system": "Darwin",
+      "release": "27.0.0",
+      "python": "3.12.14",
+      "cpu": "Apple M5 Pro"
+    },
+    "evidence_stage": "desktop",
+    "seed": null,
+    "checkpoint_sha256": null,
+    "config": {
+      "haspi": true
+    },
+    "timestamp": "2026-10-25T15:00:07-0400",
+    "torch_threads": "1",
+    "load_avg": [
+      71.78173828125,
+      66.34130859375,
+      60.962890625
+    ]
+  }
+}

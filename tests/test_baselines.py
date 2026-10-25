@@ -23,8 +23,9 @@ def test_beamformers_pass_target_direction():
 
 @pytest.mark.skipif(not (C.REPO / "data/external/src/rnnoise").exists(), reason="rnnoise not built")
 def test_rnnoise_alignment():
-    from clarity_tse.synth.corpus import synthetic_noise  # noqa: F401
     import sys
+
+    from clarity_tse.synth.corpus import synthetic_noise  # noqa: F401
     sys.path.insert(0, str(C.REPO / "scripts"))
     from make_fixtures import synth_speaker_utt
     x = synth_speaker_utt(np.random.default_rng(0), 120, [600, 1400, 2500], 3.0)

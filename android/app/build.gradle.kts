@@ -14,7 +14,7 @@ android {
         versionCode = 1
         versionName = "0.1-research"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        externalNativeBuild { cmake { cppFlags += listOf("-std=c++17", "-O2") } }
+        externalNativeBuild { cmake { cppFlags += listOf("-std=c++17", "-O2"); arguments += listOf("-DANDROID_STL=c++_shared", "-DORT_DIR=" + layout.buildDirectory.dir("ort").get().asFile.absolutePath) } }
         ndk { abiFilters += listOf("arm64-v8a", "x86_64") }
     }
     buildFeatures { prefab = true }
@@ -28,7 +28,11 @@ android {
     androidResources { noCompress += listOf("onnx") }
 }
 
+// onnxruntime-android has no prefab: unpack its headers + .so for the native (JNI) engine
+val ortAar: Configuration by configurations.creating
+
 dependencies {
+    ortAar("com.microsoft.onnxruntime:onnxruntime-android:1.20.0@aar")
     implementation("com.google.oboe:oboe:1.9.3")
     implementation("com.microsoft.onnxruntime:onnxruntime-android:1.20.0")
     implementation("androidx.appcompat:appcompat:1.7.0")
@@ -36,3 +40,10 @@ dependencies {
     androidTestImplementation("androidx.test.ext:junit:1.2.1")
     androidTestImplementation("androidx.test:runner:1.6.2")
 }
+
+val extractOrt by tasks.registering(Copy::class) {
+    from({ zipTree(ortAar.singleFile) }) { include("headers/**", "jni/**") }
+    into(layout.buildDirectory.dir("ort"))
+}
+tasks.matching { it.name.startsWith("configureCMake") || it.name.startsWith("buildCMake") }
+    .configureEach { dependsOn(extractOrt) }

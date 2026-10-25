@@ -143,7 +143,9 @@ def make(kind: str, seed: int, split: str = "test", duration_s: float = 12.0) ->
     for si, o in enumerate(owner):
         if o >= 0:
             tk_img[o] += images[si]
-            tk_early[o] += earlies[si]
+            e = earlies[si]
+            assert e is not None
+            tk_early[o] += e
         else:
             bg += images[si]
     # calibrate: each partner at -26 dBFS (when active), babble+noise at 3 dB below partners

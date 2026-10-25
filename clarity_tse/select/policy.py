@@ -140,7 +140,7 @@ class TargetSelector:
         yaw = yaw_deg if cfg.use_imu else 0.0
         energy_db = 10 * np.log10(np.mean(x_doa**2) + 1e-12)
         if cfg.use_doa and x_doa.shape[0] == 2 and energy_db > cfg.vad_db:
-            for lat, strength in self._doa_peaks(x_doa):
+            for lat, _strength in self._doa_peaks(x_doa):
                 w_az = float(wrap(self._resolve_front(lat) + yaw))
                 d = [abs(float(wrap(tr.world_az - w_az))) for tr in self.tracks]
                 if d and min(d) < cfg.track_merge_deg:
@@ -184,7 +184,7 @@ class TargetSelector:
 
     def _decide(self, yaw: float) -> tuple[float, np.ndarray, int | None]:
         cfg = self.cfg
-        emb = np.zeros(192, dtype=np.float32)
+        emb: np.ndarray = np.zeros(192, dtype=np.float32)
         if cfg.mode == "voice" and self.enrolled:
             emb = self.enrolled[self.voice_index].astype(np.float32)
         if not self.tracks:

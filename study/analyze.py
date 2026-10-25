@@ -41,7 +41,7 @@ def analyze(df: pd.DataFrame) -> dict:
         key = f"C(condition, Treatment('clarity_lo'))[T.{name}]"
         contrasts[name] = dict(coef=float(-lmm.params[key]), p=float(lmm.pvalues[key]))
     adj = holm([v["p"] for v in contrasts.values()])
-    for (k, v), pa in zip(contrasts.items(), adj, strict=True):
+    for v, pa in zip(contrasts.values(), adj, strict=True):
         v["p_holm"] = pa
     out["elogit_lmm_clarity_lo_minus_baseline"] = contrasts
     # binomial GLMM (variational Bayes); expand to Bernoulli rows

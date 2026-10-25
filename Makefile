@@ -39,22 +39,47 @@ baselines:        ## M2
 	$(PY) -m bench.run_baselines --jobs $(JOBS)
 train-quick-fixture:  ## tiny train+eval on fixtures (CI)
 	bash scripts/ci_fixture.sh
-unused-old-fixture:
-	CLARITY_EXTERNAL=data/fixtures/external CLARITY_CACHE=data/fixtures/cache $(PY) -m bench.train --config configs/ci_tiny.yaml --out results/ci
-train-quick:
-	$(PY) -m bench.train --config configs/quick.yaml --out results/quick
+train-quick:      ## 1 short run of the operating-point architecture (smoke test on real data)
+	$(PY) -m bench.train --config configs/m3/gen/b16_s0.yaml --out results/quick/runs --override '{"name":"quick_b16","train":{"steps":300,"eval_every":300},"loss":{"w_kd":0}}'
+
 train:            ## M3 latency sweep (all budgets, 3 seeds)
 	bash bench/train_sweep.sh
-eval:
+eval:             ## M3 quality-vs-latency curve + ablations (+ M4/M5 below)
 	$(PY) -m bench.eval_streaming --jobs $(JOBS)
-rt-bench:         ## M6 compute latency on desktop
-	$(MAKE) rt && ./rt/build/clarity_bench --model results/m3/export/clarity_10ms.onnx --minutes 1
-rt-soak:          ## M6 60-minute soak (CoreAudio clock, muted output)
-	$(MAKE) rt && ./rt/build/clarity_rt --model results/m3/export/clarity_10ms.onnx --minutes 60 --mute --json results/m6/soak_60min.json
+eval-select:
+	$(PY) -m bench.run_selection --ckpt $(OP) --jobs $(JOBS)
+eval-personalize:
+	$(PY) -m bench.train_rho --ckpt $(OP) && $(PY) -m bench.eval_personalize --ckpt $(OP) --jobs $(JOBS) --hasqi
+eval-real:        ## M9 (needs consented recordings in data/personal/raw/)
+	$(PY) -m bench.eval_real --ckpt $(OP)
+figures:
+	$(PY) -m bench.make_figures
+rt-bench:         ## M6 per-hop compute latency of every exported model (desktop)
+	bash bench/rt_bench.sh 120
+rt-soak:          ## M6 60-minute soak on the CoreAudio clock (muted output) at the operating point
+	$(MAKE) rt && ./rt/build/clarity_rt --model data/cache/export/$(OP).onnx --minutes 60 --mute --json results/m6/soak_60min.raw.json \
+	  && $(PY) -m bench.provenance_wrap results/m6/soak_60min.raw.json results/m6/soak_60min.json --ckpt data/cache/ckpt/$(OP).pt --onnx data/cache/export/$(OP).onnx \
+	  && rm results/m6/soak_60min.raw.json
+OP ?= b16_s0
+ANDROID_ENV := JAVA_HOME=$${JAVA_HOME:-/opt/homebrew/opt/openjdk@17} ANDROID_HOME=$${ANDROID_HOME:-$$HOME/Library/Android/sdk}
+android-assets:   ## bundle the operating-point model + enrollment embedder into the APK
+	mkdir -p android/app/src/main/assets
+	cp data/cache/export/$(OP).onnx android/app/src/main/assets/clarity.onnx
+	cp data/cache/export/$(OP).cfg android/app/src/main/assets/clarity.cfg
+	cp data/cache/export/$(OP)_film.onnx android/app/src/main/assets/clarity_film.onnx
+	cp data/cache/export/ecapa.onnx android/app/src/main/assets/ecapa.onnx
 android:
-	cd android && ./gradlew assembleDebug testDebugUnitTest
+	cd android && $(ANDROID_ENV) ./gradlew --no-daemon assembleDebug testDebugUnitTest
+android-install: android
+	adb install -r android/app/build/outputs/apk/debug/app-debug.apk
+android-test-device:  ## instrumented tests (device or emulator)
+	cd android && $(ANDROID_ENV) ./gradlew --no-daemon connectedDebugAndroidTest
+android-latency:  ## launch loopback measurement on a connected phone (result shown in app + logcat)
+	adb shell am start -n org.clarity.app/.MainActivity --ez measure_latency true
+energy:           ## M8: estimated energy operating points (+ parses on-device sessions if any)
+	$(PY) -m bench.energy_estimate
 demo:
-	$(PY) -m bench.demo
+	$(PY) -m bench.demo --model $(OP)
 study-dryrun:
 	$(PY) -m study.simulate && $(PY) -m study.analyze --data study/data_simulated
 study-serve:

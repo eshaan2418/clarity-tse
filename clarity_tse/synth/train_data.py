@@ -169,7 +169,7 @@ class OnlineMixDataset(torch.utils.data.Dataset):
         spk_iter = iter(self._speakers[int(i)] for i in spks)
         target_spk = next(spk_iter)
         imgs = []
-        target_img = np.zeros((2, n))
+        target_img: np.ndarray = np.zeros((2, n))
         target_early = np.zeros(n)
         target_path = None
         for si, role in enumerate(roles):

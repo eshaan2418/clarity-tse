@@ -18,15 +18,16 @@ model:
   use_doa: true
   use_voice: true
 name: b40_s0
+order: 4
 seed: 0
 train:
   batch: 16
   clip_s: 4.0
   device: auto
-  eval_every: 2500
+  eval_every: 750
   lr: 0.001
   size_per_epoch: 16000
-  steps: 30000
+  steps: 6000
   val_per_cell: 2
   val_set: val_main
   warmup: 500

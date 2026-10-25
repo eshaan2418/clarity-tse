@@ -1,5 +1,4 @@
-data:
-  p_absent: 0.0
+data: {}
 init_from: null
 loss:
   teacher: data/cache/ckpt/offline_s0.pt
@@ -12,22 +11,23 @@ model:
   causal: true
   channels: 2
   hidden: 256
-  hop: 80
+  hop: 128
   lookahead: 0
   n_fft: 512
   repeats: 2
-  use_doa: true
+  use_doa: false
   use_voice: true
-name: b10_noabsent_s0
+name: b16_nodoa_s0
+order: 13
 seed: 0
 train:
   batch: 16
   clip_s: 4.0
   device: auto
-  eval_every: 2500
+  eval_every: 750
   lr: 0.001
   size_per_epoch: 16000
-  steps: 30000
+  steps: 6000
   val_per_cell: 2
   val_set: val_main
   warmup: 500

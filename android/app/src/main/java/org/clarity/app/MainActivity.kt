@@ -60,6 +60,7 @@ class MainActivity : AppCompatActivity() {
             requestPermissions(arrayOf(Manifest.permission.RECORD_AUDIO), 1)
         }
         audio.registerAudioDeviceCallback(routeCallback, ui)
+        if (intent?.getBooleanExtra("measure_latency", false) == true) measureLatency()  // `make android-latency`
     }
 
     private fun buildUi(): ScrollView {
@@ -212,7 +213,9 @@ class MainActivity : AppCompatActivity() {
         thread {
             val ms = NativeEngine.measureLoopbackMs(lowLatency)
             val route = audio.getDevices(AudioManager.GET_DEVICES_OUTPUTS).firstOrNull { it.isSink }?.productName ?: "?"
-            ui.post { toastStatus(if (ms < 0) "no click detected" else "round-trip %.1f ms on %s (label: on-device)".format(ms, route)) }
+            val msg = if (ms < 0) "no click detected" else "round-trip %.1f ms on %s (label: on-device)".format(ms, route)
+            android.util.Log.i("ClarityLatency", "route=$route lowLatency=$lowLatency roundtrip_ms=$ms")
+            ui.post { toastStatus(msg) }
         }
     }
 
