@@ -12,8 +12,8 @@ make -s rt >/dev/null
 for m in "$EXP"/b*_s0.onnx; do
   [[ "$m" == *_film.onnx ]] && continue
   n=$(basename "$m" .onnx)
-  ./rt/build/clarity_bench --model "$m" --seconds "$SECS" --rt --json "$OUT/$n.raw.json" >/dev/null
-  ./rt/build/clarity_bench --model "$m" --seconds "$SECS" --rt --contention 8 --json "$OUT/${n}_contended.raw.json" >/dev/null
+  ./rt/build/clarity_bench --model "$m" --seconds "$SECS" --json "$OUT/$n.raw.json" >/dev/null
+  ./rt/build/clarity_bench --model "$m" --seconds "$SECS" --contention 8 --json "$OUT/${n}_contended.raw.json" >/dev/null
   for f in "$OUT/$n.raw.json" "$OUT/${n}_contended.raw.json"; do
     uv run python -m bench.provenance_wrap "$f" "${f%.raw.json}.json" --ckpt "data/cache/ckpt/$n.pt" --onnx "$m"
     rm "$f"

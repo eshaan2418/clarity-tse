@@ -31,8 +31,12 @@ def main() -> None:
     op = json.loads(Path("results/m3/summary.json").read_text())["operating_point"]
     cfg = json.loads(Path(f"data/cache/export/{op}.json").read_text()) if Path(f"data/cache/export/{op}.json").exists() else {}
     alg = cfg.get("algorithmic_latency_ms")
-    bench = json.loads(Path(f"results/m6/bench/{op}.json").read_text())
-    comp = bench["compute"]["p99_ms"]
+    # compute on the real playback path: hop compute measured inside the CoreAudio IO callback during the
+    # 60-min soak (unloaded run preferred), else the standalone benchmark loop
+    src = next(p for p in ("results/m6/soak_60min.json", "results/m6/soak_60min_loaded.json", f"results/m6/bench/{op}.json")
+               if Path(p).exists())
+    d = json.loads(Path(src).read_text())
+    comp = (d.get("hop_compute") or d["compute"])["p99_ms"]
     routes = []
     for name, (lo, hi) in OS_RT_MS.items():
         routes.append(dict(route=name, algorithmic_ms=alg, compute_p99_ms=comp, os_roundtrip_ms_range=[lo, hi],
@@ -45,7 +49,7 @@ def main() -> None:
     device = [json.loads(p.read_text()) for p in sorted(Path("results/m7/device").glob("*.json"))] \
         if Path("results/m7/device").exists() else []
     write_result("results/m7/system_latency.json", dict(operating_point=op, algorithmic_plus_compute_ms=alg + comp,
-                 routes=routes, on_device_measurements=device, sources=SOURCES), stage="estimated" if not device else "on-device")
+                 routes=routes, compute_source=src, on_device_measurements=device, sources=SOURCES), stage="estimated" if not device else "on-device")
     for r in routes:
         print(r["route"], [round(x, 1) for x in r["total_ms_range"]])
 

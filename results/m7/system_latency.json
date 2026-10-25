@@ -1,0 +1,123 @@
+{
+  "operating_point": "b16_s0",
+  "algorithmic_plus_compute_ms": 18.49704,
+  "routes": [
+    {
+      "route": "wired_pro_audio_bound",
+      "algorithmic_ms": 16.0,
+      "compute_p99_ms": 2.49704,
+      "os_roundtrip_ms_range": [
+        0.0,
+        25.0
+      ],
+      "bt_ms_range": [
+        0.0,
+        0.0
+      ],
+      "total_ms_range": [
+        18.49704,
+        43.49704
+      ],
+      "stage": {
+        "algorithmic": "exact",
+        "compute": "desktop",
+        "os": "estimated (requirement bound)"
+      }
+    },
+    {
+      "route": "wired_mpc_bound",
+      "algorithmic_ms": 16.0,
+      "compute_p99_ms": 2.49704,
+      "os_roundtrip_ms_range": [
+        0.0,
+        80.0
+      ],
+      "bt_ms_range": [
+        0.0,
+        0.0
+      ],
+      "total_ms_range": [
+        18.49704,
+        98.49704
+      ],
+      "stage": {
+        "algorithmic": "exact",
+        "compute": "desktop",
+        "os": "estimated (requirement bound)"
+      }
+    },
+    {
+      "route": "bt_classic_a2dp",
+      "algorithmic_ms": 16.0,
+      "compute_p99_ms": 2.49704,
+      "os_roundtrip_ms_range": [
+        0.0,
+        25.0
+      ],
+      "bt_ms_range": [
+        100.0,
+        200.0
+      ],
+      "total_ms_range": [
+        118.49704,
+        243.49704
+      ],
+      "stage": {
+        "algorithmic": "exact",
+        "compute": "desktop",
+        "os": "estimated",
+        "bt": "estimated (published claims)"
+      }
+    },
+    {
+      "route": "bt_le_audio",
+      "algorithmic_ms": 16.0,
+      "compute_p99_ms": 2.49704,
+      "os_roundtrip_ms_range": [
+        0.0,
+        25.0
+      ],
+      "bt_ms_range": [
+        20.0,
+        30.0
+      ],
+      "total_ms_range": [
+        38.49704,
+        73.49704
+      ],
+      "stage": {
+        "algorithmic": "exact",
+        "compute": "desktop",
+        "os": "estimated",
+        "bt": "estimated (published claims)"
+      }
+    }
+  ],
+  "compute_source": "results/m6/soak_60min_loaded.json",
+  "on_device_measurements": [],
+  "sources": {
+    "android_cdd_15": "Android 15 Compatibility Definition Document, sec. 5.6 (Media Performance Class: round-trip <= 80 ms on >= 1 path) and sec. 5.10 (android.hardware.audio.pro: round-trip <= 25 ms on >= 1 path). https://source.android.com/docs/compatibility/15/android-15-cdd",
+    "bt_sig_le_audio": "Bluetooth SIG / vendor material on LE Audio (LC3): claimed ~20-30 ms minimum vs ~100-200 ms for classic Bluetooth audio; no controlled measurement found. https://www.bluetooth.com/blog/introducing-le-audio-the-use-cases/"
+  },
+  "provenance": {
+    "git_commit": "93691def113162ede820970bbaa33c92fad4decf-dirty",
+    "hardware": {
+      "machine": "arm64",
+      "system": "Darwin",
+      "release": "27.0.0",
+      "python": "3.12.14",
+      "cpu": "Apple M5 Pro"
+    },
+    "evidence_stage": "estimated",
+    "seed": null,
+    "checkpoint_sha256": null,
+    "config": {},
+    "timestamp": "2026-10-25T18:54:45-0400",
+    "torch_threads": "default",
+    "load_avg": [
+      39.154296875,
+      40.82373046875,
+      37.939453125
+    ]
+  }
+}

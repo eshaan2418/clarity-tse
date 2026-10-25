@@ -6,6 +6,8 @@
     "model:b16_s0",
     "model:b16_s0:nodoa",
     "model:b16_s0:novoice",
+    "model:b16_s1",
+    "model:b16_s2",
     "model:b20_s0",
     "model:b2_s0",
     "model:b40_s0",
@@ -15,7 +17,7 @@
   "n_items": 240,
   "csv": "results/m3/per_item.csv",
   "provenance": {
-    "git_commit": "42c230e5fbf30dacc5c93238a797581e32c2c95b-dirty",
+    "git_commit": "93691def113162ede820970bbaa33c92fad4decf-dirty",
     "hardware": {
       "machine": "arm64",
       "system": "Darwin",
@@ -29,12 +31,12 @@
     "config": {
       "haspi": true
     },
-    "timestamp": "2026-10-25T18:21:54-0400",
+    "timestamp": "2026-10-25T18:41:35-0400",
     "torch_threads": "1",
     "load_avg": [
-      31.92919921875,
-      42.06298828125,
-      47.775390625
+      37.828125,
+      33.56396484375,
+      35.34765625
     ]
   }
 }

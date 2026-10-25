@@ -1,0 +1,46 @@
+{
+  "model": "data/cache/export/b16_s0.onnx",
+  "hop": 128,
+  "hop_ms": 8.0,
+  "audio_seconds": 60.0,
+  "contention_threads": 0,
+  "ort_threads": 1,
+  "rt_thread": false,
+  "compute": {
+    "n": 7500,
+    "mean_ms": 2.2125,
+    "p50_ms": 1.53313,
+    "p90_ms": 3.04325,
+    "p99_ms": 14.98683,
+    "p999_ms": 38.88246,
+    "max_ms": 97.47267,
+    "deadline_ms": 8.0,
+    "deadline_misses": 218,
+    "dropped": 0,
+    "rtf": 0.2765625
+  },
+  "onnx_sha256": "f433550cfad86b42ee211858c9ef60daeb3f7fc2af557fa284b55190607b59e0",
+  "provenance": {
+    "git_commit": "93691def113162ede820970bbaa33c92fad4decf-dirty",
+    "hardware": {
+      "machine": "arm64",
+      "system": "Darwin",
+      "release": "27.0.0",
+      "python": "3.12.14",
+      "cpu": "Apple M5 Pro"
+    },
+    "evidence_stage": "desktop",
+    "seed": null,
+    "checkpoint_sha256": "d301a3b95db878493e06a90a376d4cb993418794f148b3ed6b4d4e8a1683298f",
+    "config": {
+      "tool": "b16_s0.raw.json"
+    },
+    "timestamp": "2026-10-25T18:54:43-0400",
+    "torch_threads": "default",
+    "load_avg": [
+      39.154296875,
+      40.82373046875,
+      37.939453125
+    ]
+  }
+}

@@ -1,0 +1,17 @@
+# gitleaks config: default rules + narrowly scoped allowlists for known false positives.
+[extend]
+useDefault = true
+
+# SHA-256 digests of checkpoints/ONNX files in provenance blocks are integrity hashes, not keys.
+[[allowlists]]
+description = "provenance SHA-256 digests in results/"
+condition = "AND"
+paths = ['''^results/.*\.json$''']
+regexTarget = "match"
+regexes = ['''^[0-9a-f]{64}$''', '''"[0-9a-f]{64}"''']
+
+# os.environ.get(<non-secret config var>, <default>) is not a secret fallback.
+[[allowlists]]
+description = "non-secret environment configuration defaults"
+regexTarget = "match"
+regexes = ['''os\.environ\.get\(\s*["'](OMP_NUM_THREADS|CLARITY_EMBEDDER|EMB_DEVICE)["']''']

@@ -60,7 +60,7 @@ def latency_curve() -> None:
         y = [r[m] for r in pts if m in r]
         sd = [r.get(f"{m}_seed_sd", np.nan) for r in pts if m in r]
         ax.axvspan(20, 45, color="#f1f0ec", zorder=0)
-        ax.text(21, 0.02, "over 20 ms\nbudget", transform=ax.get_xaxis_transform(), color=TEXT2, fontsize=7)
+        ax.text(21, 0.25, "over 20 ms\nbudget", transform=ax.get_xaxis_transform(), color=TEXT2, fontsize=7)
         ax.errorbar(x, y, yerr=[0 if not np.isfinite(s) else s for s in sd], color=COLOR["clarity"], marker="o",
                     ms=5, capsize=2, label="Clarity (causal)")
         if ceil and m in ceil:
@@ -74,7 +74,7 @@ def latency_curve() -> None:
         ax.set_xlabel("algorithmic latency (ms)")
         ax.set_ylabel(lab)
         ax.set_xlim(0, 45)
-    axes[0].legend(loc="upper left", fontsize=7)
+    axes[0].legend(loc="lower left", bbox_to_anchor=(0.0, 0.12), fontsize=7)
     fig.suptitle("Quality vs algorithmic latency (test_main, 240 scenes; error bars = seed SD where 3 seeds)",
                  color=TEXT, fontsize=9)
     save(fig, "latency_curve")
@@ -100,6 +100,7 @@ def latency_budget() -> None:
             left += w
         ax.text(left + 2, i, f"≤ {left:.0f} ms", va="center", color=TEXT2, fontsize=7)
     ax.axvline(20, color=TEXT2, lw=0.8, ls="--")
+    ax.text(21, len(s["routes"]) - 0.45, "20 ms budget", color=TEXT2, fontsize=7)
     ax.set_yticks(range(len(s["routes"])), [names.get(r["route"], r["route"]) for r in s["routes"]], fontsize=7)
     ax.set_xlabel("latency (ms); hatched = estimated, not measured on a device")
     h, lab = ax.get_legend_handles_labels()
