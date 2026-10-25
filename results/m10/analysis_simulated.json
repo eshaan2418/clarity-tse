@@ -1,76 +1,154 @@
 {
-  "n_participants": 16,
-  "n_trials": 480,
   "simulated": true,
-  "percent_correct": {
-    "unprocessed": 39.32,
-    "rnnoise": 41.8,
-    "mpdr": 43.75,
-    "clarity_lo": 55.86,
-    "clarity_hi": 54.3
+  "n_participants": 16,
+  "n_word_trials": 480,
+  "percent_keywords_correct": {
+    "unprocessed": 44.16,
+    "rnnoise": 44.11,
+    "mpdr": 49.67,
+    "clarity_lo": 60.78,
+    "clarity_hi": 63.04
   },
-  "elogit_lmm_clarity_lo_minus_baseline": {
+  "percent_keywords_correct_by_snr": {
+    "unprocessed@-5": 27.06,
+    "unprocessed@+0": 45.72,
+    "unprocessed@+5": 59.69,
+    "rnnoise@-5": 23.48,
+    "rnnoise@+0": 41.83,
+    "rnnoise@+5": 67.02,
+    "mpdr@-5": 31.4,
+    "mpdr@+0": 48.1,
+    "mpdr@+5": 69.5,
+    "clarity_lo@-5": 42.94,
+    "clarity_lo@+0": 63.87,
+    "clarity_lo@+5": 75.54,
+    "clarity_hi@-5": 44.59,
+    "clarity_hi@+0": 63.31,
+    "clarity_hi@+5": 81.21
+  },
+  "elogit_lmm_clarity_lo_minus_condition": {
     "unprocessed": {
-      "coef": 0.7576347596178135,
-      "p": 1.562164209569453e-10,
-      "p_holm": 6.248656838277812e-10
+      "coef": 0.7282266039621729,
+      "se": 0.13287229465889838,
+      "p": 4.2376494007290585e-08,
+      "p_holm": 1.6361360715616265e-07
     },
     "rnnoise": {
-      "coef": 0.6159415064047717,
-      "p": 1.9673150629641836e-07,
-      "p_holm": 5.901945188892551e-07
+      "coef": 0.7290578270506074,
+      "se": 0.13287229465889838,
+      "p": 4.090340178904066e-08,
+      "p_holm": 1.6361360715616265e-07
     },
     "mpdr": {
-      "coef": 0.5287331430903511,
-      "p": 7.976430740163873e-06,
-      "p_holm": 1.5952861480327747e-05
+      "coef": 0.48066862774914726,
+      "se": 0.1328722946588984,
+      "p": 0.000297435511270836,
+      "p_holm": 0.000594871022541672
     },
     "clarity_hi": {
-      "coef": -0.021661144903179372,
-      "p": 0.8548328736862525,
-      "p_holm": 0.8548328736862525
+      "coef": -0.14941223428697847,
+      "se": 0.13287229465889838,
+      "p": 0.26080946196378196,
+      "p_holm": 0.26080946196378196
     }
   },
-  "glmm_fixed_effects": {
-    "Intercept": -0.5525932652690768,
-    "C(condition)[T.rnnoise]": 0.12604335461203542,
-    "C(condition)[T.mpdr]": 0.22457466675023752,
-    "C(condition)[T.clarity_lo]": 0.8258048347557563,
-    "C(condition)[T.clarity_hi]": 0.7509070679089753,
-    "snr": 0.17748284489486377
-  },
-  "mushra_means": {
-    "unprocessed": 30.26,
-    "rnnoise": 33.81,
-    "mpdr": 41.45,
-    "clarity_lo": 61.64,
-    "clarity_hi": 65.05
-  },
-  "mushra_lmm_params": {
-    "Intercept": 30.263997121286234,
-    "C(condition)[T.rnnoise]": 3.541677823845244,
-    "C(condition)[T.mpdr]": 11.18617669181093,
-    "C(condition)[T.clarity_lo]": 31.37228328719663,
-    "C(condition)[T.clarity_hi]": 34.78180502159019,
-    "Group Var": 0.00018998760637849602
+  "glmm_fixed_effects_logit": {
+    "Intercept": {
+      "mean": 0.5062977896748027,
+      "sd": 0.03851968815926187
+    },
+    "C(condition, Treatment('clarity_lo'))[T.unprocessed]": {
+      "mean": -0.7869936446304663,
+      "sd": 0.08563396317199826
+    },
+    "C(condition, Treatment('clarity_lo'))[T.rnnoise]": {
+      "mean": -0.7831965963297532,
+      "sd": 0.08557601127777034
+    },
+    "C(condition, Treatment('clarity_lo'))[T.mpdr]": {
+      "mean": -0.5069034708238396,
+      "sd": 0.0850193882665629
+    },
+    "C(condition, Treatment('clarity_lo'))[T.clarity_hi]": {
+      "mean": 0.13316865134436237,
+      "sd": 0.08771700289758272
+    },
+    "snr": {
+      "mean": 0.17135226505836382,
+      "sd": 0.00958558566261171
+    }
   },
   "effort_means": {
-    "unprocessed": 5.07,
-    "rnnoise": 4.92,
-    "mpdr": 4.38,
-    "clarity_lo": 3.29,
-    "clarity_hi": 3.3
+    "unprocessed": 4.85,
+    "rnnoise": 4.77,
+    "mpdr": 4.57,
+    "clarity_lo": 3.36,
+    "clarity_hi": 3.23
   },
-  "effort_lmm_params": {
-    "Intercept": 5.072916666666669,
-    "C(condition)[T.rnnoise]": -0.15625000000000114,
-    "C(condition)[T.mpdr]": -0.6979166666666681,
-    "C(condition)[T.clarity_lo]": -1.7812500000000024,
-    "C(condition)[T.clarity_hi]": -1.7708333333333361,
-    "Group Var": 2.9524813523074393e-06
+  "effort_lmm_clarity_lo_minus_condition": {
+    "unprocessed": {
+      "coef": -1.4895833333333286,
+      "se": 0.14435397076118595,
+      "p": 5.784430720601957e-25,
+      "p_holm": 2.313772288240783e-24
+    },
+    "rnnoise": {
+      "coef": -1.4062499999999956,
+      "se": 0.14435397076118597,
+      "p": 2.0021912848997122e-22,
+      "p_holm": 6.006573854699137e-22
+    },
+    "mpdr": {
+      "coef": -1.2083333333333288,
+      "se": 0.14435397076118597,
+      "p": 5.731215908956686e-17,
+      "p_holm": 1.1462431817913372e-16
+    },
+    "clarity_hi": {
+      "coef": 0.13541666666667126,
+      "se": 0.144353970761186,
+      "p": 0.34819940552174367,
+      "p_holm": 0.34819940552174367
+    }
+  },
+  "mushra_excluded_participants": [
+    "S15"
+  ],
+  "mushra_means": {
+    "unprocessed": 31.07,
+    "rnnoise": 34.77,
+    "mpdr": 39.81,
+    "clarity_lo": 60.56,
+    "clarity_hi": 65.75
+  },
+  "mushra_lmm_clarity_lo_minus_condition": {
+    "unprocessed": {
+      "coef": 29.48454248010214,
+      "se": 1.9238855120512723,
+      "p": 5.164103811754063e-53,
+      "p_holm": 2.0656415247016253e-52
+    },
+    "rnnoise": {
+      "coef": 25.78796469532253,
+      "se": 1.9238855120512723,
+      "p": 5.720874494081179e-41,
+      "p_holm": 1.7162623482243536e-40
+    },
+    "mpdr": {
+      "coef": 20.746384118943197,
+      "se": 1.9238855120512723,
+      "p": 4.115250573682467e-27,
+      "p_holm": 8.230501147364934e-27
+    },
+    "clarity_hi": {
+      "coef": -5.19403816082033,
+      "se": 1.9238855120512723,
+      "p": 0.006938853597097373,
+      "p_holm": 0.006938853597097373
+    }
   },
   "provenance": {
-    "git_commit": "6745e275563891756f51f2bb45ba976a6ad21617-dirty",
+    "git_commit": "01bae5b73235cdbe990d6deeb92735ca05b5b021-dirty",
     "hardware": {
       "machine": "arm64",
       "system": "Darwin",
@@ -84,12 +162,12 @@
     "config": {
       "data": "study/data_simulated"
     },
-    "timestamp": "2026-10-24T14:45:55-0400",
-    "torch_threads": "default",
+    "timestamp": "2026-10-25T15:05:48-0400",
+    "torch_threads": "1",
     "load_avg": [
-      91.50927734375,
-      113.51025390625,
-      160.94140625
+      26.31396484375,
+      46.2490234375,
+      54.609375
     ]
   }
 }

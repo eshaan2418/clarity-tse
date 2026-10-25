@@ -1,40 +1,83 @@
 <!doctype html>
 <html><head><meta charset="utf-8"><title>Clarity listening study</title>
-<style>body{font-family:system-ui;max-width:720px;margin:2em auto}button{font-size:1.1em;margin:.3em}
-.hidden{display:none}input[type=text]{width:100%;font-size:1.1em}</style></head>
+<style>body{font-family:system-ui;max-width:760px;margin:2em auto}button{font-size:1.05em;margin:.3em}
+.hidden{display:none}input[type=text]{width:100%;font-size:1.1em}.row{display:flex;align-items:center;gap:.8em;margin:.4em 0}
+input[type=range]{width:320px}</style></head>
 <body>
 <h2>Listening study</h2>
-<p><b>Research prototype — not a medical device or hearing test.</b> Remove the headphones if anything is too loud.</p>
+<p><b>Research prototype — not a medical device or hearing test.</b> Take the headphones off if anything
+is too loud. You can stop at any time without giving a reason.</p>
+
 <div id="setup">
-  Participant code: <input id="pid" size="6"> <br><br>
-  <label><input type="checkbox" id="cal"> Experimenter: calibration done (calibration noise = 65 dB(A))</label><br><br>
+  <p>Participant code: <input id="pid" size="6"></p>
+  <p>Experimenter: play the calibration noise and set the headphone level so the sound-level meter on the
+     coupler reads <b>65 dB(A)</b>. Do not change the level afterwards.</p>
+  <button onclick="new Audio('/calibration.wav').play()">▶ Calibration noise</button>
+  <p><label><input type="checkbox" id="cal"> Calibration done</label></p>
   <button onclick="start()">Start</button>
 </div>
-<div id="trial" class="hidden">
-  <p>Trial <span id="n"></span> / <span id="tot"></span></p>
-  <button onclick="play()">▶ Play (once)</button>
-  <p>Type every word the target talker said:</p><input type="text" id="words">
-  <p>Effort (1 = none … 7 = extreme): <select id="effort"><option>1</option><option>2</option><option>3</option><option selected>4</option><option>5</option><option>6</option><option>7</option></select></p>
-  <button onclick="next()">Next</button>
+
+<div id="word" class="hidden">
+  <p>Part 1 — trial <span id="n"></span> / <span id="tot"></span></p>
+  <p>You will hear one sentence spoken by the talker in front of you, once.</p>
+  <button onclick="playWord()">▶ Play (once)</button>
+  <p>Type every word you heard that talker say:</p><input type="text" id="words" autocomplete="off">
+  <p>How much effort did listening take? (1 = none … 7 = extreme)
+    <select id="effort"><option>1</option><option>2</option><option>3</option><option selected>4</option>
+    <option>5</option><option>6</option><option>7</option></select></p>
+  <button onclick="nextWord()">Next</button>
 </div>
+
+<div id="mushra" class="hidden">
+  <p>Part 2 — screen <span id="mn"></span> / <span id="mtot"></span></p>
+  <p>Each version contains the same sentence. Rate the overall quality of each one against the
+     <b>Reference</b> (0 = bad … 100 = excellent). One version is the hidden reference itself, so rate
+     at least one at 100. You can replay as often as you like.</p>
+  <button onclick="playStim('reference', true)">▶ Reference</button>
+  <div id="sliders"></div>
+  <button onclick="nextMushra()">Next screen</button>
+</div>
+
 <div id="done" class="hidden"><h3>Thank you — all done.</h3></div>
 <script>
-let trials=[],i=0,pid="",played=false,audio=null;
+let L=null,i=0,m=0,pid="",played=false,audio=null,heard=new Set();
+const LETTERS="ABCDEFG";
+function stop(){ if(audio){audio.pause();} }
+async function post(rec){ await fetch('/api/response',{method:'POST',headers:{'Content-Type':'application/json'},
+  body:JSON.stringify(Object.assign({participant:pid,time:Date.now()},rec))}); }
 async function start(){
   pid=document.getElementById('pid').value.trim();
   if(!document.getElementById('cal').checked){alert('Calibrate first.');return;}
   const r=await fetch('/api/trials?pid='+encodeURIComponent(pid)); if(!r.ok){alert('Unknown code');return;}
-  trials=await r.json(); document.getElementById('setup').classList.add('hidden');
-  document.getElementById('trial').classList.remove('hidden'); document.getElementById('tot').textContent=trials.length; show();
+  L=await r.json(); document.getElementById('setup').classList.add('hidden');
+  document.getElementById('word').classList.remove('hidden'); document.getElementById('tot').textContent=L.word.length; showWord();
 }
-function show(){document.getElementById('n').textContent=i+1;document.getElementById('words').value='';played=false;}
-function play(){ if(played) return; const t=trials[i]; audio=new Audio('/audio/'+t.condition+'/'+t.item+'.wav'); audio.play(); played=true; }
-async function next(){
+function showWord(){document.getElementById('n').textContent=i+1;document.getElementById('words').value='';played=false;}
+function playWord(){ if(played) return; const t=L.word[i]; stop(); audio=new Audio('/audio/'+t.condition+'/'+t.item+'.wav'); audio.play(); played=true; }
+async function nextWord(){
   if(!played){alert('Play the sound first.');return;}
-  const t=trials[i];
-  await fetch('/api/response',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({participant:pid,
-    item:t.item,condition:t.condition,snr:t.snr,typed:document.getElementById('words').value,
-    effort:parseInt(document.getElementById('effort').value),time:Date.now()})});
-  i++; if(i>=trials.length){document.getElementById('trial').classList.add('hidden');document.getElementById('done').classList.remove('hidden');} else show();
+  const t=L.word[i];
+  await post({type:'word',item:t.item,condition:t.condition,snr:t.snr,typed:document.getElementById('words').value,
+              effort:parseInt(document.getElementById('effort').value)});
+  i++; if(i<L.word.length){showWord();return;}
+  document.getElementById('word').classList.add('hidden');
+  if(!L.mushra.length){document.getElementById('done').classList.remove('hidden');return;}
+  document.getElementById('mushra').classList.remove('hidden'); document.getElementById('mtot').textContent=L.mushra.length; showMushra();
+}
+function playStim(cond, isRef){ const t=L.mushra[m]; stop(); audio=new Audio('/audio/'+cond+'/'+t.item+'.wav'); audio.play(); if(!isRef) heard.add(cond); }
+function showMushra(){
+  const t=L.mushra[m]; heard=new Set(); document.getElementById('mn').textContent=m+1;
+  document.getElementById('sliders').innerHTML=t.stimuli.map((c,k)=>
+    `<div class="row"><button onclick="playStim('${c}',false)">▶ ${LETTERS[k]}</button>
+     <input type="range" min="0" max="100" value="50" id="r${k}" oninput="document.getElementById('v${k}').textContent=this.value">
+     <span id="v${k}">50</span></div>`).join('');
+}
+async function nextMushra(){
+  const t=L.mushra[m];
+  if(heard.size<t.stimuli.length){alert('Please listen to every version first.');return;}
+  for(let k=0;k<t.stimuli.length;k++)
+    await post({type:'mushra',item:t.item,condition:t.stimuli[k],snr:t.snr,rating:parseInt(document.getElementById('r'+k).value)});
+  m++; if(m<L.mushra.length){showMushra();return;}
+  document.getElementById('mushra').classList.add('hidden'); document.getElementById('done').classList.remove('hidden');
 }
 </script></body></html>

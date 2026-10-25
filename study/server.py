@@ -1,7 +1,8 @@
 """Local-only listening-test server (binds 127.0.0.1; responses saved to study/data/, nothing uploaded).
 
 Stimuli are read from data/cache/study_stimuli/<condition>/<item>.wav (made by study/make_stimuli.py),
-passed through the hearing-safety limiter on every request, and served as 16-bit WAV.
+passed through the hearing-safety limiter on every request (calibration noise included), and served
+as 16-bit WAV. Trial lists come from study/randomize.py (study/trial_lists/<pid>.json).
 """
 
 from __future__ import annotations
@@ -44,8 +45,8 @@ class Handler(BaseHTTPRequestHandler):
                 return self._send(404, b"unknown participant", "text/plain")
             return self._send(200, f.read_bytes(), "application/json")
         m = re.match(r"^/audio/([A-Za-z0-9_]+)/([A-Za-z0-9_+\-]+)\.wav$", path)
-        if m:
-            f = STIM / m.group(1) / f"{m.group(2)}.wav"
+        if m or path == "/calibration.wav":
+            f = STIM / "calibration.wav" if m is None else STIM / m.group(1) / f"{m.group(2)}.wav"
             if not f.exists():
                 return self._send(404, b"missing stimulus", "text/plain")
             x, sr = sf.read(f, dtype="float32")

@@ -1,0 +1,245 @@
+{
+ "items": [
+  {
+   "item": "sim_word_-05_00",
+   "task": "word",
+   "snr": -5.0,
+   "transcript": "THE YELLOW WINTER MARKET SILVER WINDOW RIVER GARDEN BRIDGE"
+  },
+  {
+   "item": "sim_word_-05_01",
+   "task": "word",
+   "snr": -5.0,
+   "transcript": "THE WINDOW YELLOW BASKET WINTER GARDEN CANDLE ORANGE"
+  },
+  {
+   "item": "sim_word_-05_02",
+   "task": "word",
+   "snr": -5.0,
+   "transcript": "THE PAPER RIVER LANTERN MOUNTAIN BASKET MORNING CANDLE GARDEN"
+  },
+  {
+   "item": "sim_word_-05_03",
+   "task": "word",
+   "snr": -5.0,
+   "transcript": "THE MOUNTAIN CAPTAIN CANDLE MARKET SILVER LANTERN YELLOW"
+  },
+  {
+   "item": "sim_word_-05_04",
+   "task": "word",
+   "snr": -5.0,
+   "transcript": "THE YELLOW ORANGE THUNDER LETTER VILLAGE MOUNTAIN PAPER MORNING"
+  },
+  {
+   "item": "sim_word_-05_05",
+   "task": "word",
+   "snr": -5.0,
+   "transcript": "THE ORANGE CANDLE CAPTAIN HORSE MOUNTAIN"
+  },
+  {
+   "item": "sim_word_-05_06",
+   "task": "word",
+   "snr": -5.0,
+   "transcript": "THE BRIDGE CAPTAIN HORSE LANTERN WINDOW PAPER THUNDER"
+  },
+  {
+   "item": "sim_word_-05_07",
+   "task": "word",
+   "snr": -5.0,
+   "transcript": "THE WINDOW RIVER THUNDER PAPER ORANGE HORSE"
+  },
+  {
+   "item": "sim_word_-05_08",
+   "task": "word",
+   "snr": -5.0,
+   "transcript": "THE LANTERN HORSE VILLAGE PAPER SILVER CANDLE GARDEN MARKET"
+  },
+  {
+   "item": "sim_word_-05_09",
+   "task": "word",
+   "snr": -5.0,
+   "transcript": "THE VILLAGE CANDLE ORANGE BASKET GARDEN SILVER THUNDER LETTER"
+  },
+  {
+   "item": "sim_word_-05_10",
+   "task": "word",
+   "snr": -5.0,
+   "transcript": "THE CAPTAIN SILVER WINTER GARDEN MOUNTAIN THUNDER"
+  },
+  {
+   "item": "sim_word_-05_11",
+   "task": "word",
+   "snr": -5.0,
+   "transcript": "THE BASKET MOUNTAIN VILLAGE BRIDGE GARDEN ORANGE WINTER"
+  },
+  {
+   "item": "sim_word_+00_00",
+   "task": "word",
+   "snr": 0.0,
+   "transcript": "THE BASKET MARKET THUNDER CANDLE SILVER HORSE"
+  },
+  {
+   "item": "sim_word_+00_01",
+   "task": "word",
+   "snr": 0.0,
+   "transcript": "THE MORNING GARDEN MARKET VILLAGE ORANGE LANTERN RIVER"
+  },
+  {
+   "item": "sim_word_+00_02",
+   "task": "word",
+   "snr": 0.0,
+   "transcript": "THE THUNDER LANTERN VILLAGE WINDOW MOUNTAIN CAPTAIN"
+  },
+  {
+   "item": "sim_word_+00_03",
+   "task": "word",
+   "snr": 0.0,
+   "transcript": "THE LETTER BASKET PAPER YELLOW VILLAGE WINTER MORNING SILVER"
+  },
+  {
+   "item": "sim_word_+00_04",
+   "task": "word",
+   "snr": 0.0,
+   "transcript": "THE CANDLE MORNING BRIDGE RIVER GARDEN MOUNTAIN WINDOW BASKET"
+  },
+  {
+   "item": "sim_word_+00_05",
+   "task": "word",
+   "snr": 0.0,
+   "transcript": "THE CAPTAIN BASKET ORANGE WINDOW HORSE SILVER MORNING"
+  },
+  {
+   "item": "sim_word_+00_06",
+   "task": "word",
+   "snr": 0.0,
+   "transcript": "THE SILVER MORNING ORANGE BASKET PAPER"
+  },
+  {
+   "item": "sim_word_+00_07",
+   "task": "word",
+   "snr": 0.0,
+   "transcript": "THE YELLOW LETTER GARDEN WINDOW MOUNTAIN WINTER BASKET BRIDGE"
+  },
+  {
+   "item": "sim_word_+00_08",
+   "task": "word",
+   "snr": 0.0,
+   "transcript": "THE SILVER GARDEN LETTER YELLOW THUNDER"
+  },
+  {
+   "item": "sim_word_+00_09",
+   "task": "word",
+   "snr": 0.0,
+   "transcript": "THE ORANGE THUNDER GARDEN MARKET HORSE"
+  },
+  {
+   "item": "sim_word_+00_10",
+   "task": "word",
+   "snr": 0.0,
+   "transcript": "THE MORNING GARDEN LANTERN CAPTAIN RIVER"
+  },
+  {
+   "item": "sim_word_+00_11",
+   "task": "word",
+   "snr": 0.0,
+   "transcript": "THE THUNDER MORNING LANTERN YELLOW GARDEN ORANGE CANDLE MOUNTAIN"
+  },
+  {
+   "item": "sim_word_+05_00",
+   "task": "word",
+   "snr": 5.0,
+   "transcript": "THE ORANGE PAPER LANTERN GARDEN VILLAGE HORSE"
+  },
+  {
+   "item": "sim_word_+05_01",
+   "task": "word",
+   "snr": 5.0,
+   "transcript": "THE LANTERN CAPTAIN YELLOW LETTER BRIDGE"
+  },
+  {
+   "item": "sim_word_+05_02",
+   "task": "word",
+   "snr": 5.0,
+   "transcript": "THE VILLAGE WINDOW CANDLE BASKET THUNDER LETTER"
+  },
+  {
+   "item": "sim_word_+05_03",
+   "task": "word",
+   "snr": 5.0,
+   "transcript": "THE ORANGE MOUNTAIN SILVER VILLAGE RIVER MORNING CANDLE"
+  },
+  {
+   "item": "sim_word_+05_04",
+   "task": "word",
+   "snr": 5.0,
+   "transcript": "THE SILVER ORANGE LANTERN HORSE YELLOW MARKET VILLAGE MOUNTAIN"
+  },
+  {
+   "item": "sim_word_+05_05",
+   "task": "word",
+   "snr": 5.0,
+   "transcript": "THE MOUNTAIN GARDEN WINTER MARKET LETTER"
+  },
+  {
+   "item": "sim_word_+05_06",
+   "task": "word",
+   "snr": 5.0,
+   "transcript": "THE HORSE MORNING WINDOW LETTER VILLAGE PAPER SILVER THUNDER"
+  },
+  {
+   "item": "sim_word_+05_07",
+   "task": "word",
+   "snr": 5.0,
+   "transcript": "THE YELLOW SILVER CANDLE HORSE PAPER CAPTAIN WINTER"
+  },
+  {
+   "item": "sim_word_+05_08",
+   "task": "word",
+   "snr": 5.0,
+   "transcript": "THE YELLOW MARKET ORANGE WINDOW PAPER HORSE"
+  },
+  {
+   "item": "sim_word_+05_09",
+   "task": "word",
+   "snr": 5.0,
+   "transcript": "THE MOUNTAIN RIVER BRIDGE THUNDER MORNING WINDOW"
+  },
+  {
+   "item": "sim_word_+05_10",
+   "task": "word",
+   "snr": 5.0,
+   "transcript": "THE WINDOW CAPTAIN LANTERN CANDLE MORNING"
+  },
+  {
+   "item": "sim_word_+05_11",
+   "task": "word",
+   "snr": 5.0,
+   "transcript": "THE BRIDGE WINTER CANDLE RIVER SILVER HORSE LETTER"
+  },
+  {
+   "item": "sim_mushra_0",
+   "task": "mushra",
+   "snr": 0.0,
+   "transcript": "THE GARDEN"
+  },
+  {
+   "item": "sim_mushra_1",
+   "task": "mushra",
+   "snr": 0.0,
+   "transcript": "THE GARDEN"
+  },
+  {
+   "item": "sim_mushra_2",
+   "task": "mushra",
+   "snr": 0.0,
+   "transcript": "THE GARDEN"
+  },
+  {
+   "item": "sim_mushra_3",
+   "task": "mushra",
+   "snr": 0.0,
+   "transcript": "THE GARDEN"
+  }
+ ],
+ "simulated": true
+}

@@ -52,6 +52,18 @@ def _resample(x: np.ndarray, sr_in: int, sr_out: int = SR) -> np.ndarray:
     return resample_poly(x, sr_out // g, sr_in // g)
 
 
+def transcript(utt_path: str) -> str:
+    """LibriSpeech transcript (upper case) for an utterance path relative to EXTERNAL."""
+    p = EXTERNAL / utt_path
+    uid = p.name.split(".")[0]
+    trans = p.parent / f"{'-'.join(uid.split('-')[:2])}.trans.txt"
+    for line in trans.read_text().splitlines():
+        k, _, text = line.partition(" ")
+        if k == uid:
+            return text
+    raise KeyError(uid)
+
+
 def read_audio(path: str | Path) -> np.ndarray:
     x, sr = sf.read(str(path), dtype="float32", always_2d=False)
     if x.ndim > 1:

@@ -282,7 +282,15 @@ def render(spec: dict[str, Any], enroll_seconds: float = 10.0, with_enrollment: 
     signals: list[np.ndarray] = []
     used_paths: set[str] = set()
     for s in spec["sources"]:
-        if "speaker" in s:
+        if s["role"] == "target" and "target_utt" in spec:
+            # single complete sentence (listening-study stimuli: transcript is known), onset 0.5 s
+            x = corpus.load_utt(corpus.Utterance(s["speaker"], spec["target_utt"], 0))
+            x = x / (_rms(x) + 1e-9) * 0.05
+            sig = np.zeros(n, dtype=np.float32)
+            m = min(len(x), n - SR // 2)
+            sig[SR // 2 : SR // 2 + m] = x[:m]
+            used_paths.add(spec["target_utt"])
+        elif "speaker" in s:
             utts = spk_index[s["speaker"]]
             off = 0 if s["role"] == "target" else int(rng.integers(0, int(0.5 * SR)))
             sig, used = _speech_track(utts, n, rng, start_offset=off)
