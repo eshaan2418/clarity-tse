@@ -88,8 +88,11 @@ def _work(args: tuple[str, str, list[str], bool, bool]) -> list[dict[str, Any]]:
         r["si_sdri"] = r["si_sdr"] - base_sisdr
         if do_haspi:
             r["haspi"] = M.haspi(y, ref)
-        d = M.dnsmos(y)
-        r.update(dnsmos_sig=d["SIG"], dnsmos_bak=d["BAK"], dnsmos_ovrl=d["OVRL"])
+        if M.DNSMOS_PATH.exists():  # downloaded by `make data`; absent on CI fixtures -> NaN
+            d = M.dnsmos(y)
+            r.update(dnsmos_sig=d["SIG"], dnsmos_bak=d["BAK"], dnsmos_ovrl=d["OVRL"])
+        else:
+            r.update(dnsmos_sig=float("nan"), dnsmos_bak=float("nan"), dnsmos_ovrl=float("nan"))
         rows.append(r)
     return rows
 
@@ -102,6 +105,10 @@ def evaluate(set_name: str, systems: list[str], out_csv: Path, jobs: int, haspi:
     from clarity_tse.eval.items import enrollment_embeddings
 
     enrollment_embeddings(set_name)  # compute/cache once before forking workers
+    from clarity_tse.eval import metrics as _M
+
+    if not _M.DNSMOS_PATH.exists():
+        print("note: DNSMOS model not found (run `make data`); DNSMOS columns will be NaN")
     ctx = get_context("spawn")
     with ctx.Pool(jobs) as p:
         rows = [r for chunk in p.imap_unordered(_work, [(set_name, i, systems, haspi, recompute) for i in all_ids])
