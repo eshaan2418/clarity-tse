@@ -58,6 +58,8 @@ class PolicyConfig:
     voice_window_s: float = 1.5
     voice_every_s: float = 0.5
     voice_temp: float = 0.08  # softness of the voice similarity -> likelihood map
+    voice_neutral: float = 0.35  # similarity treated as "no evidence" (also used for tracks not yet scored)
+    voice_max_ratio: float = 4.0  # voice evidence bounded to [1/r, r]: biases, never overrides, the facing prior
     vad_db: float = -50.0
 
 
@@ -128,20 +130,26 @@ class TargetSelector:
                 tr.sims[k] = s if k not in tr.sims else 0.6 * tr.sims[k] + 0.4 * s
 
     # --------------------------------------------------------------- step
-    def step(self, x_doa: np.ndarray, x_voice: np.ndarray | None, yaw_deg: float) -> tuple[float, np.ndarray, int | None]:
+    def step(self, x_doa: np.ndarray, x_voice: np.ndarray | None, yaw_deg: float,
+             yaw_doa: float | None = None, yaw_voice: float | None = None) -> tuple[float, np.ndarray, int | None]:
         """Advance one block.
 
         x_doa: (2, n) recent audio (doa_window_s); x_voice: (2, m) longer window or None;
-        yaw_deg: IMU yaw at the end of the block (ignored when use_imu=False).
+        yaw_deg: IMU yaw at the end of the block (ignored when use_imu=False);
+        yaw_doa / yaw_voice: mean IMU yaw over the DOA / voice audio windows (default: yaw_deg). DOA from a
+        window must be combined with the head orientation *during* that window, otherwise a head turn
+        smears world-frame tracks.
         Returns (theta_rel_deg or NaN, embedding (192,) or zeros, current track index).
         """
         cfg = self.cfg
         self.t += cfg.block_s
         yaw = yaw_deg if cfg.use_imu else 0.0
+        y_doa = (yaw_doa if yaw_doa is not None else yaw_deg) if cfg.use_imu else 0.0
+        y_voice = (yaw_voice if yaw_voice is not None else yaw_deg) if cfg.use_imu else 0.0
         energy_db = 10 * np.log10(np.mean(x_doa**2) + 1e-12)
         if cfg.use_doa and x_doa.shape[0] == 2 and energy_db > cfg.vad_db:
             for lat, _strength in self._doa_peaks(x_doa):
-                w_az = float(wrap(self._resolve_front(lat) + yaw))
+                w_az = float(wrap(self._resolve_front(lat) + y_doa))
                 d = [abs(float(wrap(tr.world_az - w_az))) for tr in self.tracks]
                 if d and min(d) < cfg.track_merge_deg:
                     tr = self.tracks[int(np.argmin(d))]
@@ -163,7 +171,7 @@ class TargetSelector:
             self.current = keep.index(self.current) if self.current in keep else None
         self.tracks = [self.tracks[i] for i in keep]
         if x_voice is not None and self.t - self._last_voice_t >= cfg.voice_every_s:
-            self._update_voice(x_voice, yaw)
+            self._update_voice(x_voice, y_voice)
             self._last_voice_t = self.t
         return self._decide(yaw)
 
@@ -171,12 +179,13 @@ class TargetSelector:
         cfg = self.cfg
         rel = float(wrap(tr.world_az - yaw))
         face = np.exp(-0.5 * (rel / cfg.face_sigma_deg) ** 2) if cfg.mode == "facing" else 1.0
-        if self.enrolled and cfg.use_voice and tr.sims:
+        if self.enrolled and cfg.use_voice:
             if cfg.mode == "voice":
-                s = tr.sims.get(self.voice_index, 0.0)
+                s = tr.sims.get(self.voice_index, cfg.voice_neutral)
             else:
-                s = max(tr.sims.values())
-            voice = float(np.exp((s - 0.5) / cfg.voice_temp))
+                s = max(tr.sims.values()) if tr.sims else cfg.voice_neutral
+            r = cfg.voice_max_ratio if cfg.mode == "facing" else 1e6  # voice mode: voice is the only cue
+            voice = float(np.clip(np.exp((s - cfg.voice_neutral) / cfg.voice_temp), 1 / r, r))
         else:
             voice = 1.0
         act = 0.2 + tr.activity

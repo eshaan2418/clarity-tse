@@ -41,10 +41,11 @@ def _imu(yaw: np.ndarray, rng: np.random.Generator) -> np.ndarray:
     return yaw + rng.normal(0, IMU_NOISE_DEG, len(yaw)) + IMU_DRIFT_DEG_PER_S * t * rng.choice([-1, 1])
 
 
-def run_policy(sc: dict[str, Any], variant: str, embed_fn, enrolled_names: list[str]) -> dict[str, np.ndarray]:
+def run_policy(sc: dict[str, Any], variant: str, embed_fn, enrolled_names: list[str],
+               overrides: dict[str, Any] | None = None) -> dict[str, np.ndarray]:
     from clarity_tse.select.policy import PolicyConfig, TargetSelector
 
-    cfg = PolicyConfig(**VARIANTS[variant])
+    cfg = PolicyConfig(**{**(overrides or {}), **VARIANTS[variant]})
     enrolled = [embed_fn(sc["enroll"][nm]) for nm in enrolled_names] if cfg.use_voice else []
     sel = TargetSelector(cfg, enrolled, embed_fn=embed_fn, voice_index=0)
     n = sc["mix"].shape[1]
@@ -56,7 +57,8 @@ def run_policy(sc: dict[str, Any], variant: str, embed_fn, enrolled_names: list[
     for e in range(blk, n + 1, blk):
         x_doa = sc["mix"][:, max(0, e - w_doa) : e]
         x_voice = sc["mix"][:, max(0, e - w_voice) : e] if e >= w_voice // 2 else None
-        th, emb, cur = sel.step(x_doa, x_voice, float(imu[e - 1]))
+        th, emb, cur = sel.step(x_doa, x_voice, float(imu[e - 1]), yaw_doa=float(imu[max(0, e - w_doa) : e].mean()),
+                                yaw_voice=float(imu[max(0, e - w_voice) : e].mean()))
         thetas.append(th)
         embs.append(emb)
         if cur is not None and cfg.use_doa:
@@ -96,8 +98,11 @@ def selection_metrics(sc: dict[str, Any], pol: dict[str, np.ndarray], variant: s
                 switch_latency_s=float(np.nanmean(lat)) if lat else float("nan"))
 
 
-def _work(args: tuple[str, int, str]) -> list[dict[str, Any]]:
-    kind, seed, ckpt = args
+def _work(args: tuple) -> list[dict[str, Any]]:
+    kind, seed, ckpt = args[:3]
+    split = args[3] if len(args) > 3 else "test"
+    overrides = args[4] if len(args) > 4 else None
+    variants = args[5] if len(args) > 5 else list(VARIANTS)
     warnings.simplefilter("ignore")
     import torch
 
@@ -107,7 +112,7 @@ def _work(args: tuple[str, int, str]) -> list[dict[str, Any]]:
     from clarity_tse.synth import corpus, scenarios
 
     torch.set_num_threads(1)
-    sc = scenarios.make(kind, seed)
+    sc = scenarios.make(kind, seed, split=split)
     net = load_model(corpus.CACHE / "ckpt" / f"{ckpt}.pt")
     hop = net.cfg.hop
     T = sc["mix"].shape[1]
@@ -130,11 +135,12 @@ def _work(args: tuple[str, int, str]) -> list[dict[str, Any]]:
     e_true = {nm: speaker.embed(sc["enroll"][nm]) for nm in ("A", "B")}
     emb_or = np.stack([e_true["A"] if a == 0 else e_true["B"] for a in sc["attended"][frame_end]])
     base = dict(kind=kind, seed=seed)
-    rows.append(dict(base, variant="unprocessed", **score(sc["mix"][0])))
-    rows.append(dict(base, variant="oracle", **score(extract(true_theta[frame_end], emb_or))))
+    if variants == list(VARIANTS):
+        rows.append(dict(base, variant="unprocessed", **score(sc["mix"][0])))
+        rows.append(dict(base, variant="oracle", **score(extract(true_theta[frame_end], emb_or))))
     enrolled_names = ["A", "B"] if kind == "turn" else ["A"]
-    for v in VARIANTS:
-        pol = run_policy(sc, v, speaker.embed, enrolled_names)
+    for v in variants:
+        pol = run_policy(sc, v, speaker.embed, enrolled_names, overrides)
         blk = pol["block"]
         # policy decision for block b is available at its end -> applies to frames after it (causal)
         bidx = np.clip(frame_end // blk - 1, 0, len(pol["theta"]) - 1)
@@ -154,12 +160,15 @@ def main() -> None:
     ap.add_argument("--seeds", type=int, default=10)
     ap.add_argument("--jobs", type=int, default=10)
     ap.add_argument("--out", default="results/m4")
+    ap.add_argument("--split", default="test")
+    ap.add_argument("--policy", default="results/m4/tuned_policy.json", help="tuned PolicyConfig overrides (from val)")
     a = ap.parse_args()
+    overrides = json.loads(Path(a.policy).read_text())["best"] if Path(a.policy).exists() else {}
     from clarity_tse.synth.scenarios import KINDS, _speaker_means
 
     os.environ.setdefault("OMP_NUM_THREADS", "1")
-    _speaker_means("test")  # warm embedding cache before forking
-    jobs = [(k, s, a.ckpt) for k in KINDS for s in range(a.seeds)]
+    _speaker_means(a.split)  # warm embedding cache before forking
+    jobs = [(k, s, a.ckpt, a.split, overrides) for k in KINDS for s in range(a.seeds)]
     with get_context("spawn").Pool(a.jobs) as p:
         rows = [r for chunk in p.imap_unordered(_work, jobs) for r in chunk]
     df = pd.DataFrame(rows)
@@ -169,7 +178,7 @@ def main() -> None:
     summ = df.groupby(["kind", "variant"]).mean(numeric_only=True).drop(columns="seed").round(4)
     print(summ.to_string())
     write_result(out / "summary.json", dict(table=json.loads(summ.reset_index().to_json(orient="records"))),
-                 config=dict(ckpt=a.ckpt, seeds=a.seeds, imu_noise_deg=IMU_NOISE_DEG,
+                 config=dict(ckpt=a.ckpt, seeds=a.seeds, split=a.split, policy_overrides=overrides, imu_noise_deg=IMU_NOISE_DEG,
                              imu_drift_deg_per_s=IMU_DRIFT_DEG_PER_S, variants=VARIANTS))
 
 

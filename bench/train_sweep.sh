@@ -9,17 +9,21 @@ cd "$(dirname "$0")/.."
 OUT=results/m3/runs
 LANES=${LANES:-2}
 mkdir -p "$OUT" logs/claims
+# claims of runs still alive from a previous invocation are kept (EXTRA_CLAIMS)
 rm -rf logs/claims/*
+for n in ${EXTRA_CLAIMS:-}; do mkdir -p "logs/claims/$n"; done
 names=${ONLY:-$(uv run python -c "
 import yaml, pathlib
 cs = [yaml.safe_load(p.read_text()) for p in pathlib.Path('configs/m3/gen').glob('*.yaml')]
 print(' '.join(c['name'] for c in sorted(cs, key=lambda c: c.get('order', 99))))")}
 
-dep_ok() {  # all of a config's checkpoint dependencies exist
-  local cfg=$1 d
+dep_ok() {  # every checkpoint dependency (teacher / init) has *finished* training (summary.json);
+  # the checkpoint file alone is not enough: it is rewritten at every best-validation step
+  local cfg=$1 d n
   for d in $(grep -E '^init_from:|^\s+teacher:' "$cfg" | awk '{print $2}'); do
     [ "$d" = "null" ] && continue
-    [ -f "$d" ] || return 1
+    n=$(basename "$d" .pt)
+    [ -f "$OUT/$n/summary.json" ] && [ -f "$d" ] || return 1
   done
 }
 

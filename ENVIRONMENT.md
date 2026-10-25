@@ -9,8 +9,8 @@ Probed 2026-10-24 (M0).
 | GPU | No CUDA. Apple GPU via PyTorch **MPS** backend (torch 2.14.1) |
 | Python | 3.12.14 (mise), deps pinned via `uv.lock` |
 | C/C++ | Apple clang (Xcode CLT), CMake (Homebrew) |
-| Java | Homebrew openjdk 27 (too new for Android Gradle Plugin; see M7) |
-| Android SDK/NDK | **Not installed** at M0; `adb` absent; **no Android device attached** |
+| Java | Homebrew openjdk 27 (default) + **openjdk@17** used for Android builds (AGP 8.7.3, Gradle 8.10.2 wrapper) |
+| Android SDK/NDK | (2026-10-25) SDK platform 35, build-tools 35, NDK 27.2.12479018, CMake 3.22.1, emulator + `system-images;android-35;google_apis;arm64-v8a` (AVD `clarity35`). **No physical Android device attached.** A second emulator (`recall_api35`) belonging to another project may be running on this host; target ours explicitly with `ANDROID_SERIAL`. |
 | Audio hardware | MacBook Pro built-in mic + speakers; no wired/BT test headset declared; no measurement mic |
 | Docker | Docker Desktop CLI present (daemon status not relied upon) |
 | Network | Available (OpenSLR, PyPI, GitHub reachable) |
@@ -25,3 +25,7 @@ Probed 2026-10-24 (M0).
 | Clarity Challenge (CEC) | **Gated — not available** (no credentials in `.env`) | Clarity licence | — |
 | WSJ0 | Not available (LDC) | — | — |
 | Personal recordings | `data/personal/raw/` empty | — | M9 blocked-with-fallback |
+
+## Host load (B8)
+Shared host; load average observed 10–75 on 18 cores during this work (other users' jobs + ours). Every timing
+result records `os.getloadavg()` in its provenance block.
