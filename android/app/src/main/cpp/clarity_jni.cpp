@@ -96,6 +96,11 @@ oboe::Result openStreams(bool lowLatency, int sr, int channels) {
       ->setChannelCount(channels)->setSampleRate(sr)->setSampleRateConversionQuality(oboe::SampleRateConversionQuality::Medium)
       ->setInputPreset(oboe::InputPreset::Unprocessed)->setBufferCapacityInFrames(gOut->getBufferCapacityInFrames() * 2);
   r = ib.openStream(gIn);
+  if (r != oboe::Result::OK && channels > 1) {  // no stereo capture on this route: mono, duplicated in the callback
+    LOGI("stereo input unavailable (%s), falling back to mono", oboe::convertToText(r));
+    ib.setChannelCount(1);
+    r = ib.openStream(gIn);
+  }
   if (r != oboe::Result::OK) return r;
   gPipe->setSharedInputStream(gIn);
   gPipe->setSharedOutputStream(gOut);

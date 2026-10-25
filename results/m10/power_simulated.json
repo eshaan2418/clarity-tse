@@ -1,0 +1,39 @@
+{
+  "power": {
+    "12": 0.64,
+    "16": 0.835,
+    "20": 0.9
+  },
+  "reps": 200,
+  "effect_logit": 0.42,
+  "alpha": 0.05,
+  "sd_participant_logit": 0.35,
+  "simulated": true,
+  "note": "assumed effect sizes; planning only",
+  "provenance": {
+    "git_commit": "4f7b6c26a228e02e46c31357982dc7e4dea9e22e-dirty",
+    "hardware": {
+      "machine": "arm64",
+      "system": "Darwin",
+      "release": "27.0.0",
+      "python": "3.12.14",
+      "cpu": "Apple M5 Pro"
+    },
+    "evidence_stage": "desktop",
+    "seed": 10000,
+    "checkpoint_sha256": null,
+    "config": {
+      "n": 16,
+      "out": "study/data_simulated",
+      "power": true,
+      "reps": 200
+    },
+    "timestamp": "2026-10-25T15:14:38-0400",
+    "torch_threads": "default",
+    "load_avg": [
+      96.73486328125,
+      68.439453125,
+      59.51318359375
+    ]
+  }
+}
