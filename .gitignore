@@ -26,3 +26,4 @@ study/trial_lists/
 logs/
 android/app/src/main/assets/
 android/app/.cxx/
+.claude/
