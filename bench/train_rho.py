@@ -83,7 +83,10 @@ def main() -> None:
         ag = torch.tensor(np.stack([random_audiogram(rng) for _ in range(16)]), dtype=torch.float32)
         loss, p = rho_loss(rho, stft, am, y[idx], ref[idx], ag)
         opt.zero_grad()
+        if not torch.isfinite(loss):
+            continue
         loss.backward()
+        torch.nn.utils.clip_grad_norm_(rho.parameters(), 1.0)
         opt.step()
         if step % 100 == 0:
             log.append(dict(step=step, loss=float(loss), proxy=p))
@@ -104,7 +107,10 @@ def main() -> None:
             idx = torch.tensor(rng.choice(len(y), 16, replace=False))
             loss, p = rho_loss(r2, stft, am, y[idx], ref[idx], ag)
             o2.zero_grad()
+            if not torch.isfinite(loss):
+                continue
             loss.backward()
+            torch.nn.utils.clip_grad_norm_([r2.offset], 1.0)
             o2.step()
         ft_log[name] = p
         path = CKPT / f"rho_{name}_{a.ckpt}.pt"

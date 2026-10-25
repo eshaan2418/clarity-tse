@@ -120,7 +120,9 @@ int main(int argc, char** argv) {
   c.hopOut.assign(c.H, 0.f);
   c.fifo.assign(8192 + 4 * c.H, 0.f);
   const size_t expectHops = (size_t)(minutes * 60 * c.sr / c.H) + 1000;
-  LatencyRecorder hopRec(expectHops), cbRec(expectHops);
+  // callbacks can be more frequent than hops: size for >= 64-frame device buffers at 48 kHz
+  const size_t expectCallbacks = (size_t)(minutes * 60 * 48000.0 / 64) + 1000;
+  LatencyRecorder hopRec(expectHops), cbRec(expectCallbacks);
   c.hopRec = &hopRec;
   c.cbRec = &cbRec;
   double deviceRate = 0;

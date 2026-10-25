@@ -166,7 +166,9 @@ def intelligibility_proxy(env_proc: torch.Tensor, env_ref: torch.Tensor, seg: in
     r = r[..., : n * seg].unfold(-1, seg, seg)
     p = p - p.mean(-1, keepdim=True)
     r = r - r.mean(-1, keepdim=True)
-    c = (p * r).sum(-1) / (p.norm(dim=-1) * r.norm(dim=-1) + 1e-6)
+    # sqrt(sum^2 + eps), not .norm(): inaudible segments are exactly constant (softplus underflow) and the
+    # gradient of the Euclidean norm at the zero vector is 0/0 = NaN
+    c = (p * r).sum(-1) / (torch.sqrt(p.square().sum(-1) + 1e-8) * torch.sqrt(r.square().sum(-1) + 1e-8))
     # weight segments where the reference is audible/active
     w = (r.abs().mean(-1) > 1e-3).float()
     return (c * w).sum((-1, -2)) / w.sum((-1, -2)).clamp_min(1)

@@ -1,0 +1,303 @@
+{
+  "table": [
+    {
+      "kind": "moving",
+      "variant": "-doa",
+      "estoi": 0.3672,
+      "si_sdr": 0.1771,
+      "sel_acc": null,
+      "wrong_rate": null,
+      "switch_latency_s": null
+    },
+    {
+      "kind": "moving",
+      "variant": "-imu",
+      "estoi": 0.4267,
+      "si_sdr": 1.4746,
+      "sel_acc": 0.9158,
+      "wrong_rate": 0.0108,
+      "switch_latency_s": null
+    },
+    {
+      "kind": "moving",
+      "variant": "-voice",
+      "estoi": 0.4072,
+      "si_sdr": 1.2004,
+      "sel_acc": 0.8783,
+      "wrong_rate": 0.0117,
+      "switch_latency_s": null
+    },
+    {
+      "kind": "moving",
+      "variant": "full",
+      "estoi": 0.4086,
+      "si_sdr": 1.2447,
+      "sel_acc": 0.8967,
+      "wrong_rate": 0.0117,
+      "switch_latency_s": null
+    },
+    {
+      "kind": "moving",
+      "variant": "oracle",
+      "estoi": 0.4509,
+      "si_sdr": 2.2883,
+      "sel_acc": null,
+      "wrong_rate": null,
+      "switch_latency_s": null
+    },
+    {
+      "kind": "moving",
+      "variant": "unprocessed",
+      "estoi": 0.3154,
+      "si_sdr": -3.0856,
+      "sel_acc": null,
+      "wrong_rate": null,
+      "switch_latency_s": null
+    },
+    {
+      "kind": "moving",
+      "variant": "voice_mode",
+      "estoi": 0.347,
+      "si_sdr": -0.8014,
+      "sel_acc": 0.5725,
+      "wrong_rate": 0.1292,
+      "switch_latency_s": null
+    },
+    {
+      "kind": "pause",
+      "variant": "-doa",
+      "estoi": 0.3864,
+      "si_sdr": -0.9249,
+      "sel_acc": null,
+      "wrong_rate": null,
+      "switch_latency_s": null
+    },
+    {
+      "kind": "pause",
+      "variant": "-imu",
+      "estoi": 0.4563,
+      "si_sdr": 1.3738,
+      "sel_acc": 0.9958,
+      "wrong_rate": 0.0,
+      "switch_latency_s": null
+    },
+    {
+      "kind": "pause",
+      "variant": "-voice",
+      "estoi": 0.4491,
+      "si_sdr": 1.1432,
+      "sel_acc": 0.9958,
+      "wrong_rate": 0.0,
+      "switch_latency_s": null
+    },
+    {
+      "kind": "pause",
+      "variant": "full",
+      "estoi": 0.4493,
+      "si_sdr": 1.2069,
+      "sel_acc": 0.9958,
+      "wrong_rate": 0.0,
+      "switch_latency_s": null
+    },
+    {
+      "kind": "pause",
+      "variant": "oracle",
+      "estoi": 0.4746,
+      "si_sdr": 1.9282,
+      "sel_acc": null,
+      "wrong_rate": null,
+      "switch_latency_s": null
+    },
+    {
+      "kind": "pause",
+      "variant": "unprocessed",
+      "estoi": 0.3281,
+      "si_sdr": -4.5604,
+      "sel_acc": null,
+      "wrong_rate": null,
+      "switch_latency_s": null
+    },
+    {
+      "kind": "pause",
+      "variant": "voice_mode",
+      "estoi": 0.3837,
+      "si_sdr": -2.1393,
+      "sel_acc": 0.5742,
+      "wrong_rate": 0.125,
+      "switch_latency_s": null
+    },
+    {
+      "kind": "similar",
+      "variant": "-doa",
+      "estoi": 0.3591,
+      "si_sdr": -0.8775,
+      "sel_acc": null,
+      "wrong_rate": null,
+      "switch_latency_s": null
+    },
+    {
+      "kind": "similar",
+      "variant": "-imu",
+      "estoi": 0.4421,
+      "si_sdr": 1.2362,
+      "sel_acc": 0.9875,
+      "wrong_rate": 0.0067,
+      "switch_latency_s": null
+    },
+    {
+      "kind": "similar",
+      "variant": "-voice",
+      "estoi": 0.4352,
+      "si_sdr": 1.0309,
+      "sel_acc": 0.975,
+      "wrong_rate": 0.0067,
+      "switch_latency_s": null
+    },
+    {
+      "kind": "similar",
+      "variant": "full",
+      "estoi": 0.4354,
+      "si_sdr": 1.0776,
+      "sel_acc": 0.9767,
+      "wrong_rate": 0.0067,
+      "switch_latency_s": null
+    },
+    {
+      "kind": "similar",
+      "variant": "oracle",
+      "estoi": 0.4585,
+      "si_sdr": 1.994,
+      "sel_acc": null,
+      "wrong_rate": null,
+      "switch_latency_s": null
+    },
+    {
+      "kind": "similar",
+      "variant": "unprocessed",
+      "estoi": 0.3207,
+      "si_sdr": -3.3183,
+      "sel_acc": null,
+      "wrong_rate": null,
+      "switch_latency_s": null
+    },
+    {
+      "kind": "similar",
+      "variant": "voice_mode",
+      "estoi": 0.3562,
+      "si_sdr": -1.7023,
+      "sel_acc": 0.5625,
+      "wrong_rate": 0.2133,
+      "switch_latency_s": null
+    },
+    {
+      "kind": "turn",
+      "variant": "-doa",
+      "estoi": 0.3882,
+      "si_sdr": -0.1361,
+      "sel_acc": null,
+      "wrong_rate": null,
+      "switch_latency_s": null
+    },
+    {
+      "kind": "turn",
+      "variant": "-imu",
+      "estoi": 0.4696,
+      "si_sdr": 1.603,
+      "sel_acc": 0.9083,
+      "wrong_rate": 0.0067,
+      "switch_latency_s": 0.0
+    },
+    {
+      "kind": "turn",
+      "variant": "-voice",
+      "estoi": 0.4501,
+      "si_sdr": 1.2788,
+      "sel_acc": 0.8658,
+      "wrong_rate": 0.1092,
+      "switch_latency_s": 0.315
+    },
+    {
+      "kind": "turn",
+      "variant": "full",
+      "estoi": 0.4437,
+      "si_sdr": 1.0399,
+      "sel_acc": 0.8317,
+      "wrong_rate": 0.1375,
+      "switch_latency_s": 0.485
+    },
+    {
+      "kind": "turn",
+      "variant": "oracle",
+      "estoi": 0.4996,
+      "si_sdr": 2.5069,
+      "sel_acc": null,
+      "wrong_rate": null,
+      "switch_latency_s": null
+    },
+    {
+      "kind": "turn",
+      "variant": "unprocessed",
+      "estoi": 0.33,
+      "si_sdr": -3.2716,
+      "sel_acc": null,
+      "wrong_rate": null,
+      "switch_latency_s": null
+    },
+    {
+      "kind": "turn",
+      "variant": "voice_mode",
+      "estoi": 0.359,
+      "si_sdr": -2.5582,
+      "sel_acc": 0.4383,
+      "wrong_rate": 0.3258,
+      "switch_latency_s": 0.26
+    }
+  ],
+  "provenance": {
+    "git_commit": "a856dfe4d1e9b0ca654865386275da2d2305f316-dirty",
+    "hardware": {
+      "machine": "arm64",
+      "system": "Darwin",
+      "release": "27.0.0",
+      "python": "3.12.14",
+      "cpu": "Apple M5 Pro"
+    },
+    "evidence_stage": "desktop",
+    "seed": null,
+    "checkpoint_sha256": null,
+    "config": {
+      "ckpt": "b16_s0",
+      "seeds": 10,
+      "split": "test",
+      "policy_overrides": {
+        "voice_neutral": 0.45,
+        "voice_max_ratio": 2.0,
+        "face_sigma_deg": 20.0
+      },
+      "imu_noise_deg": 2.0,
+      "imu_drift_deg_per_s": 0.5,
+      "variants": {
+        "full": {},
+        "-imu": {
+          "use_imu": false
+        },
+        "-doa": {
+          "use_doa": false
+        },
+        "-voice": {
+          "use_voice": false
+        },
+        "voice_mode": {
+          "mode": "voice"
+        }
+      }
+    },
+    "timestamp": "2026-10-25T16:39:14-0400",
+    "torch_threads": "1",
+    "load_avg": [
+      40.33447265625,
+      37.0068359375,
+      29.07177734375
+    ]
+  }
+}

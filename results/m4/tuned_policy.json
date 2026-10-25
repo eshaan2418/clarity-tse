@@ -1,0 +1,159 @@
+{
+  "best": {
+    "voice_neutral": 0.45,
+    "voice_max_ratio": 2.0,
+    "face_sigma_deg": 20.0
+  },
+  "split": "val",
+  "objective": "mean_kind(sel_acc - wrong_rate)",
+  "grid": {
+    "voice_neutral": [
+      0.25,
+      0.35,
+      0.45
+    ],
+    "voice_max_ratio": [
+      2.0,
+      4.0
+    ],
+    "face_sigma_deg": [
+      20.0,
+      30.0
+    ]
+  },
+  "table": [
+    {
+      "voice_neutral": 0.45,
+      "voice_max_ratio": 2.0,
+      "face_sigma_deg": 20.0,
+      "obj": 0.8718750000000001,
+      "sel_acc": 0.8994791666666667,
+      "wrong_rate": 0.02760416666666667,
+      "estoi": 0.45690756737631655
+    },
+    {
+      "voice_neutral": 0.25,
+      "voice_max_ratio": 2.0,
+      "face_sigma_deg": 20.0,
+      "obj": 0.8697916666666667,
+      "sel_acc": 0.89375,
+      "wrong_rate": 0.023958333333333335,
+      "estoi": 0.45536461918970517
+    },
+    {
+      "voice_neutral": 0.35,
+      "voice_max_ratio": 2.0,
+      "face_sigma_deg": 20.0,
+      "obj": 0.8578125000000001,
+      "sel_acc": 0.8833333333333333,
+      "wrong_rate": 0.025520833333333333,
+      "estoi": 0.45480499042471
+    },
+    {
+      "voice_neutral": 0.35,
+      "voice_max_ratio": 4.0,
+      "face_sigma_deg": 20.0,
+      "obj": 0.853125,
+      "sel_acc": 0.878125,
+      "wrong_rate": 0.025,
+      "estoi": 0.4539750232466504
+    },
+    {
+      "voice_neutral": 0.45,
+      "voice_max_ratio": 4.0,
+      "face_sigma_deg": 20.0,
+      "obj": 0.8520833333333333,
+      "sel_acc": 0.8895833333333334,
+      "wrong_rate": 0.0375,
+      "estoi": 0.4542207288149777
+    },
+    {
+      "voice_neutral": 0.25,
+      "voice_max_ratio": 4.0,
+      "face_sigma_deg": 20.0,
+      "obj": 0.8473958333333333,
+      "sel_acc": 0.8697916666666667,
+      "wrong_rate": 0.022395833333333334,
+      "estoi": 0.4529345284514832
+    },
+    {
+      "voice_neutral": 0.45,
+      "voice_max_ratio": 2.0,
+      "face_sigma_deg": 30.0,
+      "obj": 0.8276041666666667,
+      "sel_acc": 0.8635416666666667,
+      "wrong_rate": 0.0359375,
+      "estoi": 0.4513513492092645
+    },
+    {
+      "voice_neutral": 0.35,
+      "voice_max_ratio": 2.0,
+      "face_sigma_deg": 30.0,
+      "obj": 0.8197916666666667,
+      "sel_acc": 0.8458333333333333,
+      "wrong_rate": 0.026041666666666668,
+      "estoi": 0.45020366283963875
+    },
+    {
+      "voice_neutral": 0.25,
+      "voice_max_ratio": 2.0,
+      "face_sigma_deg": 30.0,
+      "obj": 0.8182291666666667,
+      "sel_acc": 0.8380208333333333,
+      "wrong_rate": 0.01979166666666667,
+      "estoi": 0.44846418028288504
+    },
+    {
+      "voice_neutral": 0.45,
+      "voice_max_ratio": 4.0,
+      "face_sigma_deg": 30.0,
+      "obj": 0.8166666666666667,
+      "sel_acc": 0.84375,
+      "wrong_rate": 0.027083333333333334,
+      "estoi": 0.44858521607246493
+    },
+    {
+      "voice_neutral": 0.25,
+      "voice_max_ratio": 4.0,
+      "face_sigma_deg": 30.0,
+      "obj": 0.7994791666666667,
+      "sel_acc": 0.8171875,
+      "wrong_rate": 0.017708333333333333,
+      "estoi": 0.4442040972540645
+    },
+    {
+      "voice_neutral": 0.35,
+      "voice_max_ratio": 4.0,
+      "face_sigma_deg": 30.0,
+      "obj": 0.7953125,
+      "sel_acc": 0.8177083333333333,
+      "wrong_rate": 0.022395833333333334,
+      "estoi": 0.44343551730256064
+    }
+  ],
+  "provenance": {
+    "git_commit": "a856dfe4d1e9b0ca654865386275da2d2305f316-dirty",
+    "hardware": {
+      "machine": "arm64",
+      "system": "Darwin",
+      "release": "27.0.0",
+      "python": "3.12.14",
+      "cpu": "Apple M5 Pro"
+    },
+    "evidence_stage": "desktop",
+    "seed": null,
+    "checkpoint_sha256": null,
+    "config": {
+      "ckpt": "b16_nokd_s0",
+      "seeds": 4,
+      "jobs": 8
+    },
+    "timestamp": "2026-10-25T16:11:38-0400",
+    "torch_threads": "1",
+    "load_avg": [
+      45.66064453125,
+      48.45068359375,
+      43.30908203125
+    ]
+  }
+}
