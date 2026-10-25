@@ -2,6 +2,7 @@
 SHELL := /bin/bash
 PY := uv run python
 export OMP_NUM_THREADS ?= 1
+export UV_FROZEN ?= 1  # never re-lock implicitly (e.g. when a machine-level UV_INDEX_URL differs)
 JOBS ?= 12
 
 .PHONY: help setup data fixtures test test-all lint typecheck rt rt-test ci testsets baselines \
