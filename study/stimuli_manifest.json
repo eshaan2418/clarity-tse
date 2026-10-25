@@ -1,0 +1,707 @@
+{
+ "present_db": -13.0,
+ "conditions": [
+  "unprocessed",
+  "rnnoise",
+  "mpdr",
+  "clarity_lo",
+  "clarity_hi"
+ ],
+ "systems": {
+  "unprocessed": "unprocessed",
+  "rnnoise": "rnnoise",
+  "mpdr": "mpdr",
+  "clarity_lo": "model:b16_s0",
+  "clarity_hi": "model:b40_s0"
+ },
+ "items": [
+  {
+   "item": "st_word_restaurant_-05_000",
+   "task": "word",
+   "kind": "restaurant",
+   "snr": -5.0,
+   "transcript": "SAID SHE POINTING TO THE PLAYTHINGS SEE",
+   "n_keywords": 4,
+   "duration_s": 4.26,
+   "peak_dbfs": {
+    "unprocessed": -17.381860733032227,
+    "rnnoise": -26.59062385559082,
+    "mpdr": -18.004074096679688,
+    "clarity_lo": -19.469322204589844,
+    "clarity_hi": -18.958389282226562
+   },
+   "target_rel_az": -7.0933739177504265
+  },
+  {
+   "item": "st_word_restaurant_-05_001",
+   "task": "word",
+   "kind": "restaurant",
+   "snr": -5.0,
+   "transcript": "SOME TIME YOU'LL TELL ME PLEASE WON'T YOU",
+   "n_keywords": 6,
+   "duration_s": 4.29,
+   "peak_dbfs": {
+    "unprocessed": -15.368241310119629,
+    "rnnoise": -24.024269104003906,
+    "mpdr": -17.637117385864258,
+    "clarity_lo": -18.012487411499023,
+    "clarity_hi": -17.757793426513672
+   },
+   "target_rel_az": 6.139746290262394
+  },
+  {
+   "item": "st_word_restaurant_-05_002",
+   "task": "word",
+   "kind": "restaurant",
+   "snr": -5.0,
+   "transcript": "THE PARLIAMENT AND THE SCOTS LAID THEIR PROPOSALS BEFORE THE KING",
+   "n_keywords": 7,
+   "duration_s": 5.8,
+   "peak_dbfs": {
+    "unprocessed": -17.584732055664062,
+    "rnnoise": -20.78422737121582,
+    "mpdr": -20.593036651611328,
+    "clarity_lo": -21.476600646972656,
+    "clarity_hi": -21.684539794921875
+   },
+   "target_rel_az": -5.714920971486578
+  },
+  {
+   "item": "st_word_restaurant_+00_003",
+   "task": "word",
+   "kind": "restaurant",
+   "snr": 0.0,
+   "transcript": "THESE MEANS CANNOT BE CONTAMINATED",
+   "n_keywords": 4,
+   "duration_s": 3.97,
+   "peak_dbfs": {
+    "unprocessed": -19.790016174316406,
+    "rnnoise": -24.300304412841797,
+    "mpdr": -21.750185012817383,
+    "clarity_lo": -23.291790008544922,
+    "clarity_hi": -23.244998931884766
+   },
+   "target_rel_az": -24.69417030099038
+  },
+  {
+   "item": "st_word_restaurant_+00_004",
+   "task": "word",
+   "kind": "restaurant",
+   "snr": 0.0,
+   "transcript": "WHEN THE KING COMES TO PARIS EVERYBODY CALLS OUT VIVE LE ROI",
+   "n_keywords": 10,
+   "duration_s": 6.24,
+   "peak_dbfs": {
+    "unprocessed": -19.48442268371582,
+    "rnnoise": -27.90074920654297,
+    "mpdr": -19.613779067993164,
+    "clarity_lo": -20.460670471191406,
+    "clarity_hi": -20.3371639251709
+   },
+   "target_rel_az": 6.626318042514555
+  },
+  {
+   "item": "st_word_restaurant_+00_005",
+   "task": "word",
+   "kind": "restaurant",
+   "snr": 0.0,
+   "transcript": "CHOKING WITH EMOTION LEOCADI MADE A SIGN TO HER PARENTS THAT SHE WISHED TO BE ALONE WITH THEM",
+   "n_keywords": 8,
+   "duration_s": 6.88,
+   "peak_dbfs": {
+    "unprocessed": -17.779542922973633,
+    "rnnoise": -20.079343795776367,
+    "mpdr": -20.03553009033203,
+    "clarity_lo": -18.791086196899414,
+    "clarity_hi": -18.64684295654297
+   },
+   "target_rel_az": -14.620271002065948
+  },
+  {
+   "item": "st_word_restaurant_+05_006",
+   "task": "word",
+   "kind": "restaurant",
+   "snr": 5.0,
+   "transcript": "AND THEE WON'T GO WHY SHOULD I",
+   "n_keywords": 5,
+   "duration_s": 4.83,
+   "peak_dbfs": {
+    "unprocessed": -20.134746551513672,
+    "rnnoise": -38.186649322509766,
+    "mpdr": -21.104408264160156,
+    "clarity_lo": -21.325408935546875,
+    "clarity_hi": -21.069677352905273
+   },
+   "target_rel_az": -4.184427922949993
+  },
+  {
+   "item": "st_word_restaurant_+05_007",
+   "task": "word",
+   "kind": "restaurant",
+   "snr": 5.0,
+   "transcript": "STUFF IT INTO YOU HIS BELLY COUNSELLED HIM",
+   "n_keywords": 4,
+   "duration_s": 4.28,
+   "peak_dbfs": {
+    "unprocessed": -14.790191650390625,
+    "rnnoise": -17.623502731323242,
+    "mpdr": -15.884846687316895,
+    "clarity_lo": -14.956780433654785,
+    "clarity_hi": -15.111425399780273
+   },
+   "target_rel_az": -6.346527187860204
+  },
+  {
+   "item": "st_word_restaurant_+05_008",
+   "task": "word",
+   "kind": "restaurant",
+   "snr": 5.0,
+   "transcript": "I COULD WRITE TO MY MAN AND ENCLOSE THE KEY HE COULD SEND DOWN THE PACKET AS HE FINDS IT",
+   "n_keywords": 10,
+   "duration_s": 6.82,
+   "peak_dbfs": {
+    "unprocessed": -17.17662811279297,
+    "rnnoise": -26.358600616455078,
+    "mpdr": -17.922317504882812,
+    "clarity_lo": -17.975744247436523,
+    "clarity_hi": -18.075197219848633
+   },
+   "target_rel_az": -23.75752840789653
+  },
+  {
+   "item": "st_word_party_-05_009",
+   "task": "word",
+   "kind": "party",
+   "snr": -5.0,
+   "transcript": "THE OTHERS RESENTED POSTPONEMENT BUT IT WAS JUST HIS SCRUPLES THAT CHARMED ME",
+   "n_keywords": 6,
+   "duration_s": 5.72,
+   "peak_dbfs": {
+    "unprocessed": -13.14556884765625,
+    "rnnoise": -18.161375045776367,
+    "mpdr": -17.414630889892578,
+    "clarity_lo": -18.40175437927246,
+    "clarity_hi": -18.812040328979492
+   },
+   "target_rel_az": 4.58011498812877
+  },
+  {
+   "item": "st_word_party_-05_010",
+   "task": "word",
+   "kind": "party",
+   "snr": -5.0,
+   "transcript": "THE FIRST LOT WE TESTED ON OUR GLASS CAT WHICH NOT ONLY BEGAN TO LIVE BUT HAS LIVED EVER SINCE",
+   "n_keywords": 12,
+   "duration_s": 6.87,
+   "peak_dbfs": {
+    "unprocessed": -17.584793090820312,
+    "rnnoise": -25.405466079711914,
+    "mpdr": -20.557592391967773,
+    "clarity_lo": -22.404876708984375,
+    "clarity_hi": -22.64847755432129
+   },
+   "target_rel_az": -9.89557098878737
+  },
+  {
+   "item": "st_word_party_-05_011",
+   "task": "word",
+   "kind": "party",
+   "snr": -5.0,
+   "transcript": "THE MOST THEY COULD CLAIM IS THAT THEY WERE SENT BY OTHERS",
+   "n_keywords": 6,
+   "duration_s": 4.42,
+   "peak_dbfs": {
+    "unprocessed": -17.900062561035156,
+    "rnnoise": -37.49647903442383,
+    "mpdr": -20.0161190032959,
+    "clarity_lo": -21.89234733581543,
+    "clarity_hi": -21.552772521972656
+   },
+   "target_rel_az": -8.874644344597783
+  },
+  {
+   "item": "st_word_party_+00_012",
+   "task": "word",
+   "kind": "party",
+   "snr": 0.0,
+   "transcript": "PEARL SAW AND GAZED INTENTLY BUT NEVER SOUGHT TO MAKE ACQUAINTANCE",
+   "n_keywords": 8,
+   "duration_s": 5.75,
+   "peak_dbfs": {
+    "unprocessed": -19.015050888061523,
+    "rnnoise": -29.25704574584961,
+    "mpdr": -20.994699478149414,
+    "clarity_lo": -20.563251495361328,
+    "clarity_hi": -20.38901138305664
+   },
+   "target_rel_az": -7.401578665360745
+  },
+  {
+   "item": "st_word_party_+00_013",
+   "task": "word",
+   "kind": "party",
+   "snr": 0.0,
+   "transcript": "THEIR SUFFERINGS HAVE NEVER YET BEEN FITLY CHRONICLED BY HUMAN SCRIBE",
+   "n_keywords": 9,
+   "duration_s": 5.32,
+   "peak_dbfs": {
+    "unprocessed": -18.289621353149414,
+    "rnnoise": -24.914112091064453,
+    "mpdr": -18.255643844604492,
+    "clarity_lo": -19.823896408081055,
+    "clarity_hi": -19.841732025146484
+   },
+   "target_rel_az": -17.785197392376517
+  },
+  {
+   "item": "st_word_party_+00_014",
+   "task": "word",
+   "kind": "party",
+   "snr": 0.0,
+   "transcript": "YOU'RE FOOLISH WHY SHOULD YOU DO ALL THIS",
+   "n_keywords": 5,
+   "duration_s": 3.57,
+   "peak_dbfs": {
+    "unprocessed": -19.97551727294922,
+    "rnnoise": -27.67734146118164,
+    "mpdr": -21.33954620361328,
+    "clarity_lo": -22.7406005859375,
+    "clarity_hi": -22.887104034423828
+   },
+   "target_rel_az": 10.990820984660587
+  },
+  {
+   "item": "st_word_party_+05_015",
+   "task": "word",
+   "kind": "party",
+   "snr": 5.0,
+   "transcript": "TWO HOURS AFTERWARDS A TERRIBLE SHOCK AWOKE ME",
+   "n_keywords": 6,
+   "duration_s": 4.23,
+   "peak_dbfs": {
+    "unprocessed": -18.833349227905273,
+    "rnnoise": -32.217185974121094,
+    "mpdr": -21.119586944580078,
+    "clarity_lo": -19.38295555114746,
+    "clarity_hi": -19.3515625
+   },
+   "target_rel_az": 9.731795893377637
+  },
+  {
+   "item": "st_word_party_+05_016",
+   "task": "word",
+   "kind": "party",
+   "snr": 5.0,
+   "transcript": "THAT'S NOT MUCH OF A JOB FOR AN ATHLETE HERE I'VE BEEN TO TOWN AND BACK",
+   "n_keywords": 9,
+   "duration_s": 5.39,
+   "peak_dbfs": {
+    "unprocessed": -19.649375915527344,
+    "rnnoise": -34.66241455078125,
+    "mpdr": -19.85837173461914,
+    "clarity_lo": -20.032928466796875,
+    "clarity_hi": -19.973676681518555
+   },
+   "target_rel_az": -19.50344602569629
+  },
+  {
+   "item": "st_word_party_+05_017",
+   "task": "word",
+   "kind": "party",
+   "snr": 5.0,
+   "transcript": "WHOSE FEET ARE AS THE FEET OF HARTS AND UNDERNEATH THE EVERLASTING ARMS",
+   "n_keywords": 7,
+   "duration_s": 6.36,
+   "peak_dbfs": {
+    "unprocessed": -16.916704177856445,
+    "rnnoise": -25.302427291870117,
+    "mpdr": -17.781612396240234,
+    "clarity_lo": -17.28554344177246,
+    "clarity_hi": -17.558387756347656
+   },
+   "target_rel_az": -13.28367434982519
+  },
+  {
+   "item": "st_word_street_-05_018",
+   "task": "word",
+   "kind": "street",
+   "snr": -5.0,
+   "transcript": "BUT I WOULD NOT SPEAK AT THE TIME BECAUSE I WANTED TO REFRESH MY MEMORY",
+   "n_keywords": 7,
+   "duration_s": 5.94,
+   "peak_dbfs": {
+    "unprocessed": -13.840410232543945,
+    "rnnoise": -15.775497436523438,
+    "mpdr": -19.545032501220703,
+    "clarity_lo": -18.699899673461914,
+    "clarity_hi": -18.08671760559082
+   },
+   "target_rel_az": -24.563007145878487
+  },
+  {
+   "item": "st_word_street_-05_019",
+   "task": "word",
+   "kind": "street",
+   "snr": -5.0,
+   "transcript": "OH WHAT A RECORD TO READ WHAT A PICTURE TO GAZE UPON HOW AWFUL THE FACT",
+   "n_keywords": 11,
+   "duration_s": 6.09,
+   "peak_dbfs": {
+    "unprocessed": -13.85409927368164,
+    "rnnoise": -18.704212188720703,
+    "mpdr": -14.2667818069458,
+    "clarity_lo": -15.032702445983887,
+    "clarity_hi": -16.184139251708984
+   },
+   "target_rel_az": -17.92488307854933
+  },
+  {
+   "item": "st_word_street_-05_020",
+   "task": "word",
+   "kind": "street",
+   "snr": -5.0,
+   "transcript": "THERE SEEMS NO GOOD REASON FOR BELIEVING THAT IT WILL CHANGE",
+   "n_keywords": 7,
+   "duration_s": 5.12,
+   "peak_dbfs": {
+    "unprocessed": -15.95488166809082,
+    "rnnoise": -25.791513442993164,
+    "mpdr": -18.666616439819336,
+    "clarity_lo": -20.56104278564453,
+    "clarity_hi": -20.451566696166992
+   },
+   "target_rel_az": 1.2205121363911644
+  },
+  {
+   "item": "st_word_street_+00_021",
+   "task": "word",
+   "kind": "street",
+   "snr": 0.0,
+   "transcript": "IN THE SILENCE THEIR DARK FIRE KINDLED THE DUSK INTO A TAWNY GLOW",
+   "n_keywords": 9,
+   "duration_s": 6.21,
+   "peak_dbfs": {
+    "unprocessed": -16.01133155822754,
+    "rnnoise": -16.60706901550293,
+    "mpdr": -17.111614227294922,
+    "clarity_lo": -16.105236053466797,
+    "clarity_hi": -16.144893646240234
+   },
+   "target_rel_az": 16.454994241516005
+  },
+  {
+   "item": "st_word_street_+00_022",
+   "task": "word",
+   "kind": "street",
+   "snr": 0.0,
+   "transcript": "HOW BROWN YOU'VE GOT SINCE YOU CAME HOME I WISH I HAD AN ATHLETE TO MOW MY ORCHARD",
+   "n_keywords": 11,
+   "duration_s": 6.04,
+   "peak_dbfs": {
+    "unprocessed": -18.436216354370117,
+    "rnnoise": -19.09725570678711,
+    "mpdr": -18.41307830810547,
+    "clarity_lo": -18.768993377685547,
+    "clarity_hi": -18.79641342163086
+   },
+   "target_rel_az": -15.687580740048418
+  },
+  {
+   "item": "st_word_street_+00_023",
+   "task": "word",
+   "kind": "street",
+   "snr": 0.0,
+   "transcript": "AT THE EMERALD CITY WHERE OUR PRINCESS OZMA LIVES GREEN IS THE POPULAR COLOR",
+   "n_keywords": 9,
+   "duration_s": 5.83,
+   "peak_dbfs": {
+    "unprocessed": -16.5548095703125,
+    "rnnoise": -21.38105010986328,
+    "mpdr": -20.079782485961914,
+    "clarity_lo": -21.70110511779785,
+    "clarity_hi": -22.241214752197266
+   },
+   "target_rel_az": 2.304455174624991
+  },
+  {
+   "item": "st_word_street_+05_024",
+   "task": "word",
+   "kind": "street",
+   "snr": 5.0,
+   "transcript": "THE PARLIAMENT AND THE SCOTS LAID THEIR PROPOSALS BEFORE THE KING",
+   "n_keywords": 7,
+   "duration_s": 5.8,
+   "peak_dbfs": {
+    "unprocessed": -22.538759231567383,
+    "rnnoise": -24.321706771850586,
+    "mpdr": -22.58890151977539,
+    "clarity_lo": -23.62932014465332,
+    "clarity_hi": -23.580839157104492
+   },
+   "target_rel_az": 3.3085147490286886
+  },
+  {
+   "item": "st_word_street_+05_025",
+   "task": "word",
+   "kind": "street",
+   "snr": 5.0,
+   "transcript": "THE UTILITY OF CONSUMPTION AS AN EVIDENCE OF WEALTH IS TO BE CLASSED AS A DERIVATIVE GROWTH",
+   "n_keywords": 7,
+   "duration_s": 6.67,
+   "peak_dbfs": {
+    "unprocessed": -20.417089462280273,
+    "rnnoise": -22.002742767333984,
+    "mpdr": -22.427143096923828,
+    "clarity_lo": -22.684642791748047,
+    "clarity_hi": -22.34925079345703
+   },
+   "target_rel_az": -6.56840287620102
+  },
+  {
+   "item": "st_word_street_+05_026",
+   "task": "word",
+   "kind": "street",
+   "snr": 5.0,
+   "transcript": "RUN BACK UNCAS AND BRING ME THE SIZE OF THE SINGER'S FOOT",
+   "n_keywords": 7,
+   "duration_s": 4.49,
+   "peak_dbfs": {
+    "unprocessed": -19.814380645751953,
+    "rnnoise": -20.898265838623047,
+    "mpdr": -21.170841217041016,
+    "clarity_lo": -19.718839645385742,
+    "clarity_hi": -19.8286190032959
+   },
+   "target_rel_az": 17.80093908216915
+  },
+  {
+   "item": "st_word_kitchen_-05_027",
+   "task": "word",
+   "kind": "kitchen",
+   "snr": -5.0,
+   "transcript": "SHE FOUND THE DOOR BUT IT WAS LOCKED OUTSIDE",
+   "n_keywords": 4,
+   "duration_s": 3.67,
+   "peak_dbfs": {
+    "unprocessed": -14.590826988220215,
+    "rnnoise": -30.165401458740234,
+    "mpdr": -17.933364868164062,
+    "clarity_lo": -17.963138580322266,
+    "clarity_hi": -18.018909454345703
+   },
+   "target_rel_az": -21.0850160909024
+  },
+  {
+   "item": "st_word_kitchen_-05_028",
+   "task": "word",
+   "kind": "kitchen",
+   "snr": -5.0,
+   "transcript": "FATHER THEE'S UNJUST TO PHILIP HE'S GOING INTO BUSINESS",
+   "n_keywords": 8,
+   "duration_s": 5.67,
+   "peak_dbfs": {
+    "unprocessed": -13.088507652282715,
+    "rnnoise": -26.496135711669922,
+    "mpdr": -14.875877380371094,
+    "clarity_lo": -15.132237434387207,
+    "clarity_hi": -15.552742004394531
+   },
+   "target_rel_az": -4.886844027238652
+  },
+  {
+   "item": "st_word_kitchen_-05_029",
+   "task": "word",
+   "kind": "kitchen",
+   "snr": -5.0,
+   "transcript": "IT MUST REMEMBER BE ONE OR THE OTHER",
+   "n_keywords": 4,
+   "duration_s": 4.02,
+   "peak_dbfs": {
+    "unprocessed": -12.845673561096191,
+    "rnnoise": -21.06065559387207,
+    "mpdr": -16.78305435180664,
+    "clarity_lo": -15.1018705368042,
+    "clarity_hi": -15.199323654174805
+   },
+   "target_rel_az": -7.759068168874023
+  },
+  {
+   "item": "st_word_kitchen_+00_030",
+   "task": "word",
+   "kind": "kitchen",
+   "snr": 0.0,
+   "transcript": "YOU WILL TAKE THEM FROM MY PRIVATE TREASURE",
+   "n_keywords": 5,
+   "duration_s": 4.17,
+   "peak_dbfs": {
+    "unprocessed": -14.699311256408691,
+    "rnnoise": -28.626632690429688,
+    "mpdr": -19.374286651611328,
+    "clarity_lo": -15.724508285522461,
+    "clarity_hi": -15.885202407836914
+   },
+   "target_rel_az": -12.668459756927007
+  },
+  {
+   "item": "st_word_kitchen_+00_031",
+   "task": "word",
+   "kind": "kitchen",
+   "snr": 0.0,
+   "transcript": "MILLIGRAM ROUGHLY ONE TWENTY EIGHT THOUSAND OF AN OUNCE",
+   "n_keywords": 7,
+   "duration_s": 5.47,
+   "peak_dbfs": {
+    "unprocessed": -18.383161544799805,
+    "rnnoise": -20.50147819519043,
+    "mpdr": -19.910629272460938,
+    "clarity_lo": -19.329360961914062,
+    "clarity_hi": -19.54730796813965
+   },
+   "target_rel_az": -0.35193192220697256
+  },
+  {
+   "item": "st_word_kitchen_+00_032",
+   "task": "word",
+   "kind": "kitchen",
+   "snr": 0.0,
+   "transcript": "IT WAS THE SCARLET LETTER IN ANOTHER FORM THE SCARLET LETTER ENDOWED WITH LIFE",
+   "n_keywords": 8,
+   "duration_s": 6.87,
+   "peak_dbfs": {
+    "unprocessed": -16.56801986694336,
+    "rnnoise": -17.677715301513672,
+    "mpdr": -20.49883270263672,
+    "clarity_lo": -17.74167823791504,
+    "clarity_hi": -17.60793685913086
+   },
+   "target_rel_az": 11.585874561534752
+  },
+  {
+   "item": "st_word_kitchen_+05_033",
+   "task": "word",
+   "kind": "kitchen",
+   "snr": 5.0,
+   "transcript": "AND THIS WAS WHY KENNETH AND BETH DISCOVERED HIM CONVERSING WITH THE YOUNG WOMAN IN THE BUGGY",
+   "n_keywords": 8,
+   "duration_s": 6.92,
+   "peak_dbfs": {
+    "unprocessed": -18.074443817138672,
+    "rnnoise": -23.4403076171875,
+    "mpdr": -18.6671142578125,
+    "clarity_lo": -22.22235870361328,
+    "clarity_hi": -22.144309997558594
+   },
+   "target_rel_az": -3.5549170118105167
+  },
+  {
+   "item": "st_word_kitchen_+05_034",
+   "task": "word",
+   "kind": "kitchen",
+   "snr": 5.0,
+   "transcript": "WORSE TOM WORSE N EVER REPLIED THE JAILER GLOOMILY",
+   "n_keywords": 8,
+   "duration_s": 4.54,
+   "peak_dbfs": {
+    "unprocessed": -18.558486938476562,
+    "rnnoise": -23.900436401367188,
+    "mpdr": -23.21100616455078,
+    "clarity_lo": -21.483192443847656,
+    "clarity_hi": -21.31678009033203
+   },
+   "target_rel_az": -9.701015762199688
+  },
+  {
+   "item": "st_word_kitchen_+05_035",
+   "task": "word",
+   "kind": "kitchen",
+   "snr": 5.0,
+   "transcript": "IN EVERY WAY THEY SOUGHT TO UNDERMINE THE AUTHORITY OF SAINT PAUL",
+   "n_keywords": 7,
+   "duration_s": 4.73,
+   "peak_dbfs": {
+    "unprocessed": -19.258607864379883,
+    "rnnoise": -27.55870819091797,
+    "mpdr": -21.6158504486084,
+    "clarity_lo": -20.816869735717773,
+    "clarity_hi": -21.131999969482422
+   },
+   "target_rel_az": -14.358526386666455
+  },
+  {
+   "item": "st_mushra_restaurant_+00_036",
+   "task": "mushra",
+   "kind": "restaurant",
+   "snr": 0.0,
+   "transcript": "NO I FORGOT ALL ABOUT THE BRAINS EXCLAIMED THE WOMAN",
+   "n_keywords": 6,
+   "duration_s": 4.86,
+   "peak_dbfs": {
+    "unprocessed": -18.235876083374023,
+    "rnnoise": -29.233057022094727,
+    "mpdr": -20.6356143951416,
+    "clarity_lo": -19.737773895263672,
+    "clarity_hi": -19.459720611572266,
+    "reference": -21.585159301757812,
+    "anchor": -18.620298385620117
+   },
+   "target_rel_az": 21.45559635060272
+  },
+  {
+   "item": "st_mushra_party_+00_037",
+   "task": "mushra",
+   "kind": "party",
+   "snr": 0.0,
+   "transcript": "THEN ALL OUR GOOD TIMES ARE OVER",
+   "n_keywords": 5,
+   "duration_s": 3.58,
+   "peak_dbfs": {
+    "unprocessed": -20.236427307128906,
+    "rnnoise": -41.48130798339844,
+    "mpdr": -23.05780029296875,
+    "clarity_lo": -22.948610305786133,
+    "clarity_hi": -23.45868682861328,
+    "reference": -24.052040100097656,
+    "anchor": -19.925979614257812
+   },
+   "target_rel_az": -22.85687470648145
+  },
+  {
+   "item": "st_mushra_street_+00_038",
+   "task": "mushra",
+   "kind": "street",
+   "snr": 0.0,
+   "transcript": "EMBRACE HIM AND FORGET ABOUT THE NATURE OF GOD",
+   "n_keywords": 5,
+   "duration_s": 4.42,
+   "peak_dbfs": {
+    "unprocessed": -18.752376556396484,
+    "rnnoise": -24.03948974609375,
+    "mpdr": -19.973621368408203,
+    "clarity_lo": -19.333398818969727,
+    "clarity_hi": -19.37539291381836,
+    "reference": -19.192895889282227,
+    "anchor": -18.758834838867188
+   },
+   "target_rel_az": -15.996694929511733
+  },
+  {
+   "item": "st_mushra_kitchen_+00_039",
+   "task": "mushra",
+   "kind": "kitchen",
+   "snr": 0.0,
+   "transcript": "YES BUT THAT'S JUST THE BEAUTY OF HER PASSION",
+   "n_keywords": 5,
+   "duration_s": 4.17,
+   "peak_dbfs": {
+    "unprocessed": -14.66611385345459,
+    "rnnoise": -33.407196044921875,
+    "mpdr": -19.40711212158203,
+    "clarity_lo": -21.017452239990234,
+    "clarity_hi": -20.234481811523438,
+    "reference": -19.815170288085938,
+    "anchor": -18.425905227661133
+   },
+   "target_rel_az": 17.76445996545499
+  }
+ ]
+}

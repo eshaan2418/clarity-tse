@@ -1,0 +1,157 @@
+{
+  "label": "simulated (study stimuli, pipeline validation)",
+  "table": [
+    {
+      "system": "clarity",
+      "n": 40,
+      "wer": 0.6688193240582947,
+      "wer_lo": 0.5487356233431602,
+      "wer_hi": 0.7832420541060248,
+      "dnsmos_ovrl": 1.9093736502225291,
+      "dnsmos_ovrl_lo": 1.7724600652295124,
+      "dnsmos_ovrl_hi": 2.054451603961659,
+      "dnsmos_sig": 2.317597384206155,
+      "dnsmos_sig_lo": 2.1522182353916457,
+      "dnsmos_sig_hi": 2.487510211518048,
+      "dnsmos_bak": 2.9887386464026133,
+      "dnsmos_bak_lo": 2.8402048727415647,
+      "dnsmos_bak_hi": 3.1348781278060285
+    },
+    {
+      "system": "mpdr",
+      "n": 40,
+      "wer": 0.7783020288534994,
+      "wer_lo": 0.6628899506335167,
+      "wer_hi": 0.8883356223025339,
+      "dnsmos_ovrl": 1.3485894162143364,
+      "dnsmos_ovrl_lo": 1.219100487557624,
+      "dnsmos_ovrl_hi": 1.5067036369242803,
+      "dnsmos_sig": 1.6666752328258394,
+      "dnsmos_sig_lo": 1.4435943235788928,
+      "dnsmos_sig_hi": 1.935340491722108,
+      "dnsmos_bak": 1.455720790929878,
+      "dnsmos_bak_lo": 1.3093383260936022,
+      "dnsmos_bak_hi": 1.6360332089729108
+    },
+    {
+      "system": "rnnoise",
+      "n": 40,
+      "wer": 1.29158937467761,
+      "wer_lo": 1.137161823368625,
+      "wer_hi": 1.457173777305211,
+      "dnsmos_ovrl": 2.080942220522592,
+      "dnsmos_ovrl_lo": 1.9414587424509735,
+      "dnsmos_ovrl_hi": 2.2190879255548093,
+      "dnsmos_sig": 2.5258184879077974,
+      "dnsmos_sig_lo": 2.3954372148894736,
+      "dnsmos_sig_hi": 2.6580469100945243,
+      "dnsmos_bak": 3.2461762412451436,
+      "dnsmos_bak_lo": 3.070416875619785,
+      "dnsmos_bak_hi": 3.4188366926769764
+    },
+    {
+      "system": "unprocessed",
+      "n": 40,
+      "wer": 1.1250897713397712,
+      "wer_lo": 0.9909219674320777,
+      "wer_hi": 1.2546457281484855,
+      "dnsmos_ovrl": 1.2425381421312864,
+      "dnsmos_ovrl_lo": 1.160472663941221,
+      "dnsmos_ovrl_hi": 1.3397856535624737,
+      "dnsmos_sig": 1.5409445651131224,
+      "dnsmos_sig_lo": 1.3541506348033714,
+      "dnsmos_sig_hi": 1.7596202382302102,
+      "dnsmos_bak": 1.3151179922003013,
+      "dnsmos_bak_lo": 1.224645569790344,
+      "dnsmos_bak_hi": 1.4201600415101223
+    }
+  ],
+  "paired": [
+    {
+      "metric": "wer",
+      "a": "clarity",
+      "b": "mpdr",
+      "mean_diff": -0.1094827047952048,
+      "ci_lo": -0.19365676159012557,
+      "ci_hi": -0.030880926365301428,
+      "wilcoxon_p": 0.013686352587213776,
+      "n": 40
+    },
+    {
+      "metric": "wer",
+      "a": "clarity",
+      "b": "rnnoise",
+      "mean_diff": -0.6227700506193153,
+      "ci_lo": -0.821816047565588,
+      "ci_hi": -0.4736344122074824,
+      "wilcoxon_p": 5.245528926900679e-08,
+      "n": 40
+    },
+    {
+      "metric": "wer",
+      "a": "clarity",
+      "b": "unprocessed",
+      "mean_diff": -0.4562704472814767,
+      "ci_lo": -0.6061233492814375,
+      "ci_hi": -0.3235978247651043,
+      "wilcoxon_p": 7.802260806317485e-07,
+      "n": 40
+    },
+    {
+      "metric": "dnsmos_ovrl",
+      "a": "clarity",
+      "b": "mpdr",
+      "mean_diff": 0.5607842340081929,
+      "ci_lo": 0.4479103577284127,
+      "ci_hi": 0.6746948862261212,
+      "wilcoxon_p": 2.546585164964199e-11,
+      "n": 40
+    },
+    {
+      "metric": "dnsmos_ovrl",
+      "a": "clarity",
+      "b": "rnnoise",
+      "mean_diff": -0.17156857030006326,
+      "ci_lo": -0.2775441104704905,
+      "ci_hi": -0.06189457850634768,
+      "wilcoxon_p": 0.0021662512626789976,
+      "n": 40
+    },
+    {
+      "metric": "dnsmos_ovrl",
+      "a": "clarity",
+      "b": "unprocessed",
+      "mean_diff": 0.6668355080912429,
+      "ci_lo": 0.5594851117142868,
+      "ci_hi": 0.7746838522498521,
+      "wilcoxon_p": 1.8189894035458565e-12,
+      "n": 40
+    }
+  ],
+  "failure_cases": [],
+  "provenance": {
+    "git_commit": "42c230e5fbf30dacc5c93238a797581e32c2c95b-dirty",
+    "hardware": {
+      "machine": "arm64",
+      "system": "Darwin",
+      "release": "27.0.0",
+      "python": "3.12.14",
+      "cpu": "Apple M5 Pro"
+    },
+    "evidence_stage": "simulated",
+    "seed": null,
+    "checkpoint_sha256": null,
+    "config": {
+      "ckpt": "b16_s0",
+      "validate_on_study": true,
+      "out": "results/m9"
+    },
+    "timestamp": "2026-10-25T18:32:19-0400",
+    "torch_threads": "default",
+    "load_avg": [
+      19.78564453125,
+      28.6357421875,
+      37.56103515625
+    ]
+  }
+}

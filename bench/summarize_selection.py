@@ -35,7 +35,15 @@ def main() -> None:
     piv = df.pivot_table(index="scene", columns="variant", values="sel_acc")
     for v in ("-imu", "-voice"):
         tests.append(dict(metric="sel_acc", a="full", b=v, **paired_test(piv["full"].to_numpy(), piv[v].to_numpy())))
-    write_result("results/m4/summary_ci.json", dict(table=rows, paired=tests), config=dict(source="results/m4/per_scene.csv"))
+    import dataclasses
+    import json as _json
+
+    from clarity_tse.select.policy import PolicyConfig
+
+    tuned = _json.loads(Path("results/m4/tuned_policy.json").read_text())["best"]
+    policy = dataclasses.asdict(PolicyConfig(**tuned))
+    write_result("results/m4/summary_ci.json", dict(table=rows, paired=tests, policy_config_used=policy),
+                 config=dict(source="results/m4/per_scene.csv"))
     md = "| kind | variant | n | ESTOI [95% CI] | sel. acc. | wrong-talker | switch latency s |\n|---|---|---|---|---|---|---|\n"
     order = ["oracle", "full", "-imu", "-voice", "-doa", "voice_mode", "unprocessed"]
     for r in sorted(rows, key=lambda r: (r["kind"] != "all", r["kind"], order.index(r["variant"]))):

@@ -20,8 +20,8 @@ import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
-DOCS = ["README.md", "RESUME_BULLETS.md", "FINAL_REVIEW.md", "DEMO.md", *sorted(str(p.relative_to(REPO))
-        for p in (REPO / "paper").glob("*.tex"))]
+DOCS = ["README.md", "RESUME_BULLETS.md", "FINAL_REVIEW.md", "DEMO.md", "results/INDEX.md", *sorted(str(p.relative_to(REPO))
+        for p in (REPO / "paper").rglob("*.tex") if "tables" not in p.parts)]  # tables are generated
 NUM = re.compile(r"(?<![\w.])[-−]?\d+\.\d+(?![\w.])|(?<![\w.])[-−]?\d+(?:\.\d+)?(?=\s?%)")
 
 
@@ -46,6 +46,13 @@ def result_values() -> list[float]:
                 _walk(json.loads(p.read_text()), vals)
             except Exception:
                 pass
+        elif p.suffix in (".yaml", ".yml"):  # run configs written by bench/train.py
+            import yaml
+
+            try:
+                _walk(yaml.safe_load(p.read_text()), vals)
+            except Exception:
+                pass
         elif p.suffix == ".csv":
             with open(p) as f:
                 for row in csv.reader(f):
@@ -56,7 +63,7 @@ def result_values() -> list[float]:
                                 vals.append(x)
                         except ValueError:
                             pass
-        elif p.suffix == ".md":
+        elif p.suffix == ".md" and p.name != "INDEX.md":  # INDEX.md is hand-written: never a source of truth
             vals += [float(m.replace("−", "-")) for m in NUM.findall(p.read_text())]
     return vals
 

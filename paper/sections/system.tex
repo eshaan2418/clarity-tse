@@ -1,0 +1,19 @@
+\section{System}
+\paragraph{Acoustic front end.} The wearer is modelled as a binaural earbud pair (left/right
+microphones 18\,cm apart on the interaural axis, free field, no head shadow; 16\,kHz). A 2-mic array
+observes only the lateral angle, so front/back are confounded. Head rotation is rendered by
+cross-fading image-source RIRs computed on a 5$^\circ$ yaw grid.
+\paragraph{Pipeline.} Every 100\,ms the selection policy $\tau$ outputs the target's head-relative
+azimuth $\theta$ (or ``unknown'') and which enrolled voice to condition on. Every hop, the streaming
+extractor $f$ consumes $H$ new samples per microphone and emits $H$ output samples; the optional
+personalisation $\rho$ multiplies the extractor's output spectrum by audiogram-dependent band gains in
+the same STFT, adding no algorithmic latency; device volume and a hard safety limiter close every
+playback path (Python, C++, Android). The C++ engine (ONNX Runtime with pre-bound I/O, no allocation
+or locks on the audio callback) and the Android app (Oboe full-duplex, AAudio low-latency path) run the
+same exported ONNX graph.
+\paragraph{Latency accounting.} Algorithmic latency $= 2H +$ look-ahead (synthesis window support of
+the asymmetric STFT); compute latency $=$ measured per-hop inference time (we use the p99); system
+latency $=$ microphone-to-ear including the OS audio path and, for Bluetooth, the radio link. The
+20\,ms constraint is checked on algorithmic $+$ p99 compute. System latency is \emph{not} measured
+(no phone) and is reported only as labelled estimates from platform requirements and published claims
+\citep{androidcdd15}.

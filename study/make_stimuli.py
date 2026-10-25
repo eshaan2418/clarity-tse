@@ -37,7 +37,7 @@ SNRS = (-5.0, 0.0, 5.0)
 KINDS = tuple(scene.SCENE_TYPES)
 WORD_ITEMS_PER_CELL = 3  # per (kind, snr): 12 items per SNR (randomize.py uses 10)
 MUSHRA_SNR = 0.0
-PRESENT_DB = -8.0
+PRESENT_DB = -13.0  # all stimuli >= 0.5 dB below the -12 dBFS limiter ceiling (asserted below)
 def pick_sentence(spk: str, rng: np.random.Generator) -> str:
     utts = [u for u in corpus.librispeech_index("test")[spk] if 2.5 * 16000 <= u.n_samples <= 6.0 * 16000]
     utts = [u for u in utts if len(keywords(corpus.transcript(u.path))) >= 4] or utts
@@ -121,6 +121,7 @@ def main() -> None:
     MANIFEST.write_text(json.dumps(dict(present_db=PRESENT_DB, conditions=list(CONDITION_SYSTEMS),
                                         systems=CONDITION_SYSTEMS, items=items), indent=1))
     worst = max(max(it["peak_dbfs"].values()) for it in items)
+    assert worst < -12.5, f"stimulus peak {worst:.1f} dBFS would engage the limiter; lower PRESENT_DB"
     print(len(items), "items ->", OUT, f"(max stimulus peak {worst:.1f} dBFS)")
 
 

@@ -1,0 +1,25 @@
+\section{Related work}
+\paragraph{Separation and extraction.} Time-domain separation (Conv-TasNet \citep{luo2019convtasnet},
+DPRNN \citep{luo2020dprnn}) and TF-domain models such as TF-GridNet \citep{wang2023tfgridnet} define
+the offline state of the art. Target-speaker extraction conditions such networks on an enrollment
+embedding: SpeakerBeam \citep{zmolikova2019speakerbeam}, VoiceFilter \citep{wang2019voicefilter} and
+its streaming variant VoiceFilter-Lite \citep{wang2020voicefilterlite}. We condition a causal TCN on a
+frozen ECAPA-TDNN embedding \citep{desplanques2020ecapa} through FiLM \citep{perez2018film}.
+\paragraph{Low-latency enhancement.} Asymmetric analysis/synthesis windows decouple frequency
+resolution from algorithmic delay \citep{mauler2007lowdelay}; \citet{wang2023lowlatency} showed strong
+STFT-domain enhancement at algorithmic latencies down to 2\,ms. RNNoise \citep{valin2018rnnoise} is a
+widely used real-time single-channel suppressor; classical multi-microphone methods (delay-and-sum,
+MVDR/MPDR) are surveyed in \citep{gannot2017consolidated}.
+\paragraph{Hearables.} ClearBuds \citep{chatterjee2022clearbuds} built synchronised binaural earbuds
+with a phone-side enhancement network; Look Once to Hear \citep{veluri2024lookonce} enrolls a target by
+looking at them and extracts their speech on-device. Our direction-plus-voice fusion is in this spirit,
+but we additionally study the latency curve, attention switching and listener personalisation.
+\paragraph{Hearing-aid processing and evaluation.} The Clarity Challenge \citep{graetzer2021clarity}
+established hearing-aid enhancement benchmarks evaluated with HASPI
+\citep{kates2014haspi,kates2021haspiv2}. NAL-R \citep{byrne1986nal} is a classic linear prescription.
+We also report STOI/ESTOI \citep{taal2011stoi,jensen2016estoi}, SI-SDR \citep{leroux2019sisdr} and
+DNSMOS P.835 \citep{reddy2022dnsmos}. Standard audiogram families \citep{bisgaard2010audiograms} inspire
+our simulated-listener profiles.
+\paragraph{Auditory attention.} EEG-based auditory attention decoding \citep{osullivan2015aad} infers
+who a listener attends to from brain signals; we use the far simpler, wearable cue of head orientation
+(people tend to face whom they listen to), plus voice identity.

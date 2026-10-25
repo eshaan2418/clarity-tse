@@ -684,8 +684,30 @@
       "n": 40
     }
   ],
+  "policy_config_used": {
+    "block_s": 0.1,
+    "mode": "facing",
+    "use_imu": true,
+    "use_doa": true,
+    "use_voice": true,
+    "face_sigma_deg": 20.0,
+    "w_face": 1.0,
+    "w_voice": 1.0,
+    "switch_margin": 1.5,
+    "switch_hold_s": 0.3,
+    "hold_silence_s": 3.0,
+    "track_merge_deg": 12.0,
+    "doa_peaks": 3,
+    "doa_window_s": 0.4,
+    "voice_window_s": 1.5,
+    "voice_every_s": 0.5,
+    "voice_temp": 0.08,
+    "voice_neutral": 0.45,
+    "voice_max_ratio": 2.0,
+    "vad_db": -50.0
+  },
   "provenance": {
-    "git_commit": "a856dfe4d1e9b0ca654865386275da2d2305f316-dirty",
+    "git_commit": "42c230e5fbf30dacc5c93238a797581e32c2c95b-dirty",
     "hardware": {
       "machine": "arm64",
       "system": "Darwin",
@@ -699,12 +721,12 @@
     "config": {
       "source": "results/m4/per_scene.csv"
     },
-    "timestamp": "2026-10-25T16:42:54-0400",
+    "timestamp": "2026-10-25T18:15:09-0400",
     "torch_threads": "default",
     "load_avg": [
-      26.8369140625,
-      30.86181640625,
-      28.1474609375
+      43.03173828125,
+      52.54345703125,
+      52.6650390625
     ]
   }
 }

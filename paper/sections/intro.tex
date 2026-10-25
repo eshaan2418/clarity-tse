@@ -1,0 +1,25 @@
+\section{Introduction}
+Following one conversation partner in a noisy, multi-talker room is hard for everyone and much harder
+with hearing loss. Hearing devices face a hard timing constraint: processed sound that arrives too
+late relative to the direct acoustic path or the wearer's own voice becomes disturbing, and delays of
+the order of 10--20\,ms are commonly cited as the tolerable range \citep{stone1999delay}. Modern
+separation networks \citep{luo2019convtasnet,luo2020dprnn,wang2023tfgridnet} and target-speaker
+extraction (TSE) systems \citep{zmolikova2019speakerbeam,wang2019voicefilter,wang2020voicefilterlite}
+reach high quality offline, but mostly with tens of milliseconds of look-ahead or long windows.
+
+We ask: \emph{can an on-device model isolate a chosen talker in noisy multi-talker scenes within
+20\,ms of algorithmic plus compute latency, and give measurably higher predicted intelligibility, for
+normal-hearing and simulated hearing-impaired listeners, than noise suppression, classical
+beamforming and generic amplification?} We study three components: (i) an attention-steered
+target-selection policy $\tau$ that fuses head orientation, direction of arrival (DOA) and an
+enrolled voice; (ii) a causal TSE network $f$ with an asymmetric-window STFT
+\citep{mauler2007lowdelay,wang2023lowlatency} evaluated across algorithmic-latency budgets $\ell$
+from 2 to 40\,ms and against a non-causal ceiling; (iii) a listener-personalisation stage $\rho$
+conditioned on an audiogram and compared with NAL-R \citep{byrne1986nal}.
+
+\paragraph{Scope and honesty.} All quality results are on simulated binaural scenes (LibriSpeech
+speech \citep{panayotov2015librispeech}, ESC-50 and synthetic noise \citep{piczak2015esc},
+image-source rooms \citep{scheibler2018pyroomacoustics}) with small models trained on one shared
+laptop GPU; hearing-impaired results use a hearing-loss model (\emph{simulated listeners}); no human
+listening data and no on-device measurements exist yet. Latency is reported in three separate
+types (algorithmic, compute, system), each labelled with its evidence stage.

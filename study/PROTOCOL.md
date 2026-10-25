@@ -35,10 +35,10 @@ single-channel noise suppressor (RNNoise) and a classical beamformer (MPDR steer
 * Closed-back headphones over a known interface. Before the session the experimenter calibrates with a
   sound-level meter + coupler (or an artificial ear) so that the speech-shaped calibration noise
   (`/calibration.wav`, long-term spectrum of the study sentences, at the presented target-speech level)
-  measures **65 dB(A)**. All stimuli share one presentation offset (−8 dB) chosen so the unprocessed
-  mixtures stay below the limiter ceiling; the server applies the same hard limiter as the app (−12 dBFS
+  measures **65 dB(A)**. All stimuli share one presentation offset (−13 dB) chosen so every stimulus peak stays
+  at least 0.5 dB below the limiter ceiling (asserted by `make_stimuli.py`), i.e. the limiter never alters a stimulus; the server applies the same hard limiter as the app (−12 dBFS
   ceiling) on every request. `make_stimuli.py` prints the maximum stimulus peak; with the 65 dB(A)
-  calibration, the −12 dBFS ceiling corresponds to about 87 dB SPL peak (65 dB + (−12 − (−34)) dB), and RMS
+  calibration, the −12 dBFS ceiling corresponds to about 92 dB SPL peak (65 dB + (−12 − (−39)) dB), and RMS
   levels stay at conversational levels. Lower the calibration target if your ethics board asks for it.
 * Participants may lower the volume at any time and can stop at any point without giving a reason.
 * Nothing is played before calibration is confirmed in the UI.
