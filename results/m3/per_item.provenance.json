@@ -2,6 +2,9 @@
   "set": "test_main",
   "systems": [
     "model:b10_s0",
+    "model:b10_s1",
+    "model:b10_s2",
+    "model:b16_noart_s0",
     "model:b16_nokd_s0",
     "model:b16_s0",
     "model:b16_s0:nodoa",
@@ -17,7 +20,7 @@
   "n_items": 240,
   "csv": "results/m3/per_item.csv",
   "provenance": {
-    "git_commit": "93691def113162ede820970bbaa33c92fad4decf-dirty",
+    "git_commit": "91449f4490648aacea46845d8053eb60eef7d881-dirty",
     "hardware": {
       "machine": "arm64",
       "system": "Darwin",
@@ -31,12 +34,12 @@
     "config": {
       "haspi": true
     },
-    "timestamp": "2026-10-25T18:41:35-0400",
+    "timestamp": "2026-10-25T19:54:18-0400",
     "torch_threads": "1",
     "load_avg": [
-      37.828125,
-      33.56396484375,
-      35.34765625
+      40.38037109375,
+      42.06396484375,
+      44.37939453125
     ]
   }
 }

@@ -90,7 +90,8 @@ def main() -> None:
         bench = M6 / f"{name}.json"
         if bench.exists():
             bj = json.loads(bench.read_text())
-            row.update(compute_p50_ms=bj["compute"]["p50_ms"], compute_p99_ms=bj["compute"]["p99_ms"],
+            row.update(compute_load_avg_1min=bj["provenance"]["load_avg"][0],
+                       compute_p50_ms=bj["compute"]["p50_ms"], compute_p99_ms=bj["compute"]["p99_ms"],
                        compute_p999_ms=bj["compute"]["p999_ms"], rtf=bj["compute"]["rtf"],
                        algo_plus_p99_ms=row["algorithmic_latency_ms"] + bj["compute"]["p99_ms"])
         curve.append(row)
@@ -111,7 +112,7 @@ def main() -> None:
             if m in s0:
                 ci = ci_table(s0.assign(system="x"), ["system"], (m,))[0]
                 r[f"{m}_ci_lo_seed0"], r[f"{m}_ci_hi_seed0"] = ci[f"{m}_lo"], ci[f"{m}_hi"]
-        for k in ("compute_p50_ms", "compute_p99_ms", "compute_p999_ms", "rtf", "algo_plus_p99_ms"):
+        for k in ("compute_p50_ms", "compute_p99_ms", "compute_p999_ms", "rtf", "algo_plus_p99_ms", "compute_load_avg_1min"):
             if k in seeds and seeds[k].notna().any():
                 r[k] = float(seeds[k].dropna().iloc[0])
         agg.append(r)
@@ -146,7 +147,15 @@ def main() -> None:
     write_result(out / "summary.json", dict(curve=agg, per_run=curve, ablations=abl, op_vs_baselines=vs,
                                             overall=overall, operating_point=op0), config=vars(a))
     md = "## Quality vs latency (mean over seeds; ± = seed SD; [CI] = item bootstrap 95% CI of seed 0)\n\n"
-    md += "| budget | alg. ms | seeds | params | MMAC/s | SI-SDRi dB | ESTOI | HASPI | PESQ | p99 compute ms | alg+p99 ms |\n"
+    soak = next((Path(p) for p in ("results/m6/soak_60min.json", "results/m6/soak_60min_loaded.json") if Path(p).exists()), None)
+    if soak is not None and op0 in rs:
+        sj = json.loads(soak.read_text())
+        alg0 = rs[op0]["algorithmic_latency_ms"]
+        md += (f"Operating point `{op0}` on the CoreAudio IO thread ({soak.name}, 60 min, load avg "
+               f"{sj['provenance']['load_avg'][0]:.0f}): per-hop compute p99 {sj['hop_compute']['p99_ms']:.2f} ms -> "
+               f"algorithmic + p99 compute = {alg0 + sj['hop_compute']['p99_ms']:.1f} ms.\n\n")
+    md += "Standalone `clarity_bench` columns are a single-thread loop on the shared host (load average shown); they are not the playback path.\n\n"
+    md += "| budget | alg. ms | seeds | params | MMAC/s | SI-SDRi dB | ESTOI | HASPI | PESQ | bench p99 ms | bench load |\n"
     md += "|---|---|---|---|---|---|---|---|---|---|---|\n"
     for r in agg:
         def cell(m, nd, r=r):
@@ -160,7 +169,7 @@ def main() -> None:
             return s
         md += (f"| {r['budget']} | {r['algorithmic_latency_ms']:.1f} | {r['n_seeds']} | {r['n_params'] / 1e6:.2f} M | "
                f"{r['mmacs_per_s']:.0f} | {cell('si_sdri', 2)} | {cell('estoi', 3)} | {cell('haspi', 3)} | {cell('pesq', 2)} | "
-               f"{r.get('compute_p99_ms', float('nan')):.3f} | {r.get('algo_plus_p99_ms', float('nan')):.2f} |\n")
+               f"{r.get('compute_p99_ms', float('nan')):.3f} | {r.get('compute_load_avg_1min', float('nan')):.0f} |\n")
     md += "\n## Ablations (paired, a − b; Holm-adjusted Wilcoxon p)\n\n| a | b | metric | mean diff [95% CI] | p_holm |\n|---|---|---|---|---|\n"
     for r in abl:
         md += f"| {r['a']} | {r['b']} | {r['metric']} | {r['mean_diff']:.3f} [{r['ci_lo']:.3f}, {r['ci_hi']:.3f}] | {r.get('p_holm', float('nan')):.2g} |\n"

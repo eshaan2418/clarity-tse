@@ -1,6 +1,6 @@
 # Clarity
 
-[![ci](https://github.com/eshaan2418/clarity/actions/workflows/ci.yml/badge.svg)](https://github.com/eshaan2418/clarity/actions/workflows/ci.yml)
+[![ci](https://github.com/eshaan2418/clarity-tse/actions/workflows/ci.yml/badge.svg)](https://github.com/eshaan2418/clarity-tse/actions/workflows/ci.yml)
 ![python](https://img.shields.io/badge/python-3.12-blue) ![status](https://img.shields.io/badge/status-research%20prototype-orange) ![not a medical device](https://img.shields.io/badge/not%20a-medical%20device-red)
 
 **Hear the person you're talking to — not the room.** Clarity is a phone + earbuds research system that
@@ -31,7 +31,7 @@ two "smart" add-ons.**
 | ✅ **Beats the baselines** | ESTOI 0.607 vs 0.515 unprocessed (paired +0.093, 95% CI [0.087, 0.098]) and vs 0.566 for an *oracle-noise* MVDR beamformer (+0.041 [0.035, 0.047]); HASPI 0.703 vs 0.581 unprocessed | 240 frozen test scenes, `results/m3/summary.md` |
 | ➖ **Latency is almost free** | quality is nearly flat from 2 ms to 40 ms (ESTOI 0.601–0.609); the non-causal ceiling is only slightly higher (0.620) | reduced scale: the ceiling is weak too |
 | ✅ **Attention steering works** | head-direction + DOA policy picks the right talker 0.925 of the time and gains +0.111 ESTOI over unprocessed, 0.037 short of oracle selection | `results/m4/summary_ci.md` |
-| ❌ **…but the IMU didn't help** | dropping the head-tracker IMU was *better* (0.952 selection accuracy); voice identity added nothing measurable | honest negative result, see [M4](#4-attention-steered-target-selection-τ) |
+| ❌ **…but the IMU didn't help** | dropping the head-tracker IMU was *better* (0.952 selection accuracy); voice identity added nothing measurable | honest negative result, see [M4](#3-attention-steered-target-selection-τ) |
 | ➖ **Personalisation is mixed** | audiogram-conditioned stage beats "enhancement + NAL-R" only for moderate flat loss (HASPI 0.549 vs 0.500); worse for normal and mild hearing | simulated listener, `results/m5/summary.json` |
 
 Every number in this README is produced by a script in [`bench/`](bench/), written to [`results/`](results/)
@@ -129,13 +129,13 @@ per-array SHA-256 checksums. Mean [95% bootstrap CI]; paired Wilcoxon tests, Hol
 |---|---|---|---|---|---|---|
 | 2 ms | 2 ms | 1 | 2014 | 3.39 | 0.601 | 0.678 |
 | 5 ms | 5 ms | 1 | 806 | 3.50 | 0.609 | 0.712 |
-| 10 ms | 10 ms | 1 | 403 | 3.44 | 0.607 | 0.699 |
+| 10 ms | 10 ms | 3 | 403 | 3.45 ± 0.02 | 0.607 ± 0.000 | 0.700 ± 0.002 |
 | **16 ms (operating point)** | 16 ms | 3 | 252 | 3.41 ± 0.01 | 0.606 ± 0.001 | 0.702 ± 0.001 |
 | 20 ms | 20 ms | 1 | 201 | 3.43 | 0.608 | 0.706 |
 | 40 ms | 40 ms | 1 | 127 | 3.24 | 0.603 | 0.691 |
 | Non-causal ceiling | whole utterance | 1 | 326 | 3.73 | 0.620 | 0.743 |
 
-± = SD over 3 training seeds (seed variance is tiny). Full table with CIs, PESQ and DNSMOS:
+± = SD over 3 training seeds at 10 ms and 16 ms (seed variance is tiny). Full table with CIs, PESQ and DNSMOS:
 [`results/m3/summary.md`](results/m3/summary.md).
 
 **Ablations at the operating point** (paired, vs `b16_s0`):
@@ -178,6 +178,8 @@ a partner who pauses. Policy parameters were tuned on **validation-split** scene
 | "Focus on this voice" mode | 0.361 | 0.537 | 0.198 |
 | Unprocessed | 0.324 | — | — |
 
+![target selection](results/figs/selection.png)
+
 **Negative result:** in simulation the IMU hurt (−0.014 ESTOI vs no IMU, Holm p = 1.2e-06). Our reading:
 2-mic lateral DOA is biased at large angles, so world-frame tracks split during head turns, while
 head-frame tracking needs no cross-turn consistency. The case where an IMU should matter — a partner who
@@ -194,6 +196,8 @@ HASPI v2 with each profile's audiogram (synthetic profiles, mild → severe, fla
 | Clarity + NAL-R | 0.696 | 0.644 | 0.634 | 0.500 | 0.590 | 0.501 |
 | Clarity + ρ (audiogram-conditioned) | 0.637 | 0.583 | 0.597 | **0.549** | 0.559 | **0.508** |
 | Clarity + ρ (fine-tuned per listener) | 0.638 | 0.581 | 0.602 | 0.545 | 0.561 | 0.490 |
+
+![personalisation](results/figs/personalization.png)
 
 Enhancement before amplification helps every profile; the learned ρ stage only beats NAL-R for moderate
 flat loss, is not the identity for normal hearing, and per-listener fine-tuning adds nothing. NAL-R as a

@@ -117,19 +117,19 @@ def selection() -> None:
 
     df = pd.DataFrame(s["table"])
     kinds = list(dict.fromkeys(df.kind))
-    variants = ["oracle", "full", "-imu", "-doa", "-voice", "voice_mode", "unprocessed"]
+    pal = {"oracle": SLOT[6], "full": SLOT[0], "-imu": SLOT[1], "-doa": SLOT[2], "voice_mode": SLOT[4], "unprocessed": MUTED}
+    lab = {"oracle": "oracle selection", "full": "full policy", "-imu": "no IMU", "-doa": "no direction",
+           "voice_mode": "voice-only mode", "unprocessed": "unprocessed"}
     fig, axes = plt.subplots(1, 2, figsize=(10, 2.8))
-    w = 0.8 / len(variants)
-    pal = {v: c for v, c in zip(variants, [SLOT[6], SLOT[0], SLOT[1], SLOT[2], SLOT[3], SLOT[4], MUTED], strict=True)}
-    for ax, m, lab in ((axes[0], "estoi", "end-to-end ESTOI"), (axes[1], "sel_acc", "selection accuracy")):
+    for ax, m, ylab, variants in ((axes[0], "estoi", "end-to-end ESTOI", ["oracle", "full", "-imu", "-doa", "unprocessed"]),
+                                  (axes[1], "sel_acc", "selection accuracy", ["full", "-imu", "voice_mode"])):
+        w = 0.8 / len(variants)
         for j, v in enumerate(variants):
             g = df[df.variant == v].set_index("kind").reindex(kinds)
-            if m not in g or g[m].isna().all():
-                continue
-            ax.bar(np.arange(len(kinds)) + (j - len(variants) / 2) * w + w / 2, g[m], w * 0.9, color=pal[v], label=v)
+            ax.bar(np.arange(len(kinds)) + (j - len(variants) / 2) * w + w / 2, g[m], w * 0.9, color=pal[v], label=lab[v])
         ax.set_xticks(range(len(kinds)), kinds)
-        ax.set_ylabel(lab)
-    axes[0].legend(fontsize=6, ncol=4, loc="upper center", bbox_to_anchor=(1.1, 1.25))
+        ax.set_ylabel(ylab)
+        ax.legend(fontsize=6, ncol=len(variants), loc="upper center", bbox_to_anchor=(0.5, 1.2))
     save(fig, "selection")
 
 
